@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cadencia · Aprende a entender la música</title>
+<link rel="stylesheet" href="styles.css">
+<script src="lessons.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<aside>
+<div class="logo"><span>◒</span> cadencia</div>
+<div class="tiny">Tu escuela de música</div>
+<nav aria-label="Navegación principal">
+<button data-page="learn" class="active">▦ &nbsp; Mi recorrido</button>
+<button data-page="studio">♫ &nbsp; Laboratorio</button>
+<button data-page="ear">◉ &nbsp; Entrenar el oído</button>
+<button data-page="progress">↗ &nbsp; Mi progreso</button>
+</nav>
+<div class="sidefoot"><strong>Un poco, cada día.</strong>Entiende. Escucha. Practica.<div class="bar"><div id="sidebarProgress"></div></div><span id="sidebarLabel"></span></div>
+</aside>
+<main>
+<header><span class="tiny">Menos memorizar. Más entender.</span><span class="tag">De la primera nota a tu primera obra</span></header>
+<div id="view"></div>
+<div class="footer">Cadencia · Recorrido introductorio de fundamentos a conceptos avanzados. La formación profesional requiere también repertorio, análisis, práctica instrumental y orientación docente.</div>
+</main>
+</div>
+<dialog id="resetDialog"><h2>¿Borrar tu progreso?</h2><p>Se eliminarán las lecciones aprobadas y los resultados auditivos guardados en este navegador.</p><div class="control"><button id="cancelReset">Cancelar</button><button id="confirmReset" class="primary">Borrar progreso</button></div></dialog>
+</body>
+</html>
