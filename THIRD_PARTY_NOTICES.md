@@ -9,7 +9,7 @@
 - Créditos originales: https://github.com/Tonejs/audio/blob/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander/README
 - Colección distribuida por Tone.js: https://github.com/Tonejs/audio/tree/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander
 
-Cadencia reproduce una selección de 17 muestras MP3 de esa colección. Las muestras se solicitan a Tone.js y, si falla, a jsDelivr con la revisión fijada efd8296360f9526e379bfbe5c1698ff54d6a1d34. Los archivos de audio no se incluyen en este repositorio.
+Cadencia reproduce una selección de 19 muestras MP3 de esa colección. Las muestras se solicitan a Tone.js y, si falla, a jsDelivr con la revisión fijada efd8296360f9526e379bfbe5c1698ff54d6a1d34. Los archivos de audio no se incluyen en este repositorio.
 
 Tratamiento durante la reproducción: ajuste de altura entre muestras cercanas, control de amplitud, envolvente de liberación, limitación dinámica y reverb opcional. No se afirma que esta integración reproduzca todas las capas de velocidad ni todas las resonancias del instrumento original.
 

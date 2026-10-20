@@ -1,7 +1,7 @@
 /* Salamander Grand Piano / Alexander Holm / CC BY 3.0.
    See THIRD_PARTY_NOTICES.md. The stereo reverb impulse is generated locally. */
 const CadenciaAudio = (() => {
-  const anchors = Array.from({length:17}, (_,i) => 42+i*3);
+  const anchors = Array.from({length:19}, (_,i) => 36+i*3);
   const names = ['C','Cs','D','Ds','E','F','Fs','G','Gs','A','As','B'];
   const revision = 'efd8296360f9526e379bfbe5c1698ff54d6a1d34';
   const bases = [

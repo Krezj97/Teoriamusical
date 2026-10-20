@@ -1,4 +1,3 @@
-/* Desarrollo, actividades y evaluación ampliada de las 20 lecciones. */
 const lessonDetails = [
   {
     "goals": [
@@ -1402,6 +1401,710 @@ const lessonDetails = [
         ],
         1,
         "La práctica eficaz necesita detectar el error y modificar la acción que lo produce."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Transportar una idea conservando sus intervalos.",
+      "Relacionar armadura, tónica y registro."
+    ],
+    "sections": [
+      [
+        "La armadura como punto de partida",
+        "El orden de sostenidos es fa–do–sol–re–la–mi–si; el de bemoles es si–mi–la–re–sol–do–fa. Una armadura sirve a una tonalidad mayor y su relativa menor. Para decidir entre ellas busca tónica, sensible, cadencias y estabilidad, no solo la última alteración escrita.",
+        "En las tonalidades mayores con sostenidos, el último sostenido está un semitono debajo de la tónica. Con dos o más bemoles, el penúltimo indica la tónica mayor. Fa mayor es el caso de un solo bemol: si♭."
+      ],
+      [
+        "Transportar con dos controles",
+        "Para subir una segunda mayor, desplaza cada nombre una posición y cada altura dos semitonos. Do–mi–sol se convierte en re–fa♯–la. Si solo cambias los nombres y mantienes teclas blancas, transformas también la estructura de los intervalos.",
+        "La transposición puede cambiar el registro necesario para cantar o tocar cómodamente. Antes de mover una pieza completa, revisa su nota más grave y más aguda. Una elección útil para un instrumento puede no serlo para una voz concreta."
+      ],
+      [
+        "De la partitura al oído",
+        "Escoge un motivo corto y canta su destino antes de tocarlo. Después prueba el original y la transposición con sus respectivos bajos. En el laboratorio cambia la tónica de una progresión: el nombre de los acordes cambia, pero se conservan los grados y el recorrido armónico. Esa relación es lo que debes aprender a escuchar."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Do–mi–sol transportado una segunda mayor ascendente da re–fa♯–la. Se mantienen los intervalos del acorde y cambia la tónica.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Re mayor usa fa♯ y do♯. Si el motivo original es do–re–mi–sol, su transporte es re–mi–fa♯–la."
+    ],
+    "pitfall": "La armadura no distingue por sí sola una tonalidad mayor de su relativa menor.",
+    "steps": [
+      "Transporta un motivo de cuatro notas desde do mayor a re mayor.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Re mayor usa fa♯ y do♯. Si el motivo original es do–re–mi–sol, su transporte es re–mi–fa♯–la.",
+    "listen": [
+      60,
+      64,
+      67,
+      62,
+      66,
+      69
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Qué comparte una tonalidad mayor con su relativa menor?",
+        [
+          "La armadura",
+          "La tónica",
+          "Todos los acordes con la misma función"
+        ],
+        0,
+        "Comparten armadura, pero cambian el centro y las funciones."
+      ],
+      [
+        "¿Cuáles son los dos primeros sostenidos del orden de armaduras?",
+        [
+          "Fa♯ y do♯",
+          "Do♯ y re♯",
+          "Sol♯ y la♯"
+        ],
+        0,
+        "El orden comienza fa–do–sol–re–la–mi–si."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Alternar subdivisiones sin mover el pulso.",
+      "Contar silencios dentro de grupos irregulares."
+    ],
+    "sections": [
+      [
+        "Una subdivisión que no mueve el pulso",
+        "Al cambiar de dos a tres subdivisiones no debe cambiar la duración del pulso principal. Practica dos palmadas uniformes en una negra y después tres. Usa una sílaba por ataque y mantén el pie constante; si el pie acelera al entrar al tresillo, la referencia principal se ha perdido.",
+        "Los números de un grupo irregular describen una relación con una división habitual. Un tresillo de corcheas suele ser tres en lugar de dos, pero la escritura completa y el contexto métrico son necesarios para interpretar grupos más complejos."
+      ],
+      [
+        "Silencios dentro del patrón",
+        "Un silencio de tresillo ocupa una de sus tres partes, aunque no haya ataque. Practica cantando las tres subdivisiones y omitiendo una palmada. Mantener una subdivisión mental facilita ejecutar los silencios con precisión y volver al ataque siguiente sin comprimir el espacio.",
+        "La lectura mejora al separar problemas: primero solo ritmo con una nota, después alturas sin prisa y finalmente ambas capas. Sube el tempo únicamente cuando puedas reconocer dónde cae cada ataque respecto al pulso."
+      ],
+      [
+        "Entrenar sin rigidez",
+        "Una ejecución precisa puede conservar articulación y dirección. Marca el inicio de cada compás, respira al final de la frase y mantén estable la duración total. El metrónomo comprueba el marco; tu escucha decide la forma de los sonidos dentro de él."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "En 4/4, tres negras más un tresillo de corcheas completan cuatro pulsos. El grupo irregular reemplaza el contenido habitual de un pulso.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Cuenta cuatro pulsos. En uno pronuncia dos ataques iguales y en el siguiente tres; los inicios de los pulsos no deben desplazarse."
+    ],
+    "pitfall": "Un tresillo no añade un pulso: subdivide una duración ya existente.",
+    "steps": [
+      "Marca cuatro pulsos e intercala corcheas binarias y tresillos sin cambiar el tempo.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Cuenta cuatro pulsos. En uno pronuncia dos ataques iguales y en el siguiente tres; los inicios de los pulsos no deben desplazarse.",
+    "listen": [
+      60,
+      60,
+      60,
+      60
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "Al pasar de dos a tres subdivisiones por pulso, ¿qué debe mantenerse?",
+        [
+          "La duración del pulso",
+          "El número de ataques",
+          "La misma figura escrita siempre"
+        ],
+        0,
+        "La subdivisión cambia, pero la unidad principal conserva su duración."
+      ],
+      [
+        "Un silencio dentro de un tresillo…",
+        [
+          "Elimina tiempo del compás",
+          "Ocupa su parte aunque no haya ataque",
+          "Convierte el compás en 3/4"
+        ],
+        1,
+        "El silencio tiene duración y la subdivisión sigue avanzando."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Armonizar una escala mayor con séptimas.",
+      "Seguir terceras y séptimas en ii–V–I."
+    ],
+    "sections": [
+      [
+        "Una nota más, otra función",
+        "Desde cada grado de una escala mayor toma cuatro notas alternas. En do obtienes Cmaj7, Dm7, Em7, Fmaj7, G7, Am7 y Bm7♭5. Comprueba cada calidad desde su fundamental: tercera, quinta y séptima. No deduzcas el acorde solo por ver el número siete.",
+        "En el modo menor las formas de la escala se mezclan según la armonía. Por ejemplo, el VII elevado puede generar un dominante mayor y un acorde de séptima disminuida. No transportes automáticamente la misma tabla mayor a una tonalidad menor."
+      ],
+      [
+        "Conectar las voces importantes",
+        "Al pasar de Dm7 a G7, fa puede mantenerse y do bajar a si. Al pasar a Cmaj7, fa baja a mi y si puede mantenerse. Es posible escuchar una dirección armónica clara con solo esas dos voces si el bajo proporciona las fundamentales.",
+        "Para estudiar, toca primero la progresión completa, después solo el bajo y finalmente las notas guía. Escuchar cada capa por separado evita depender de una única posición de mano."
+      ],
+      [
+        "De grados a decisiones",
+        "Los grados te permiten transportar un acompañamiento sin memorizar una nueva secuencia de nombres. También ayudan a comparar piezas y reconocer procesos semejantes. Explica qué hace cada acorde dentro de una frase: reposo, preparación, dominante, enlace o cambio de color."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "En do mayor, Bm7♭5 contiene si–re–fa–la: tercera menor, quinta disminuida y séptima menor.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "En sol: Gmaj7–Am7–Bm7–Cmaj7–D7–Em7–F♯m7♭5. El ii–V–I es Am7–D7–Gmaj7."
+    ],
+    "pitfall": "No todas las séptimas de una tonalidad mayor tienen la misma calidad.",
+    "steps": [
+      "Armoniza sol mayor con séptimas y toca un ii7–V7–Imaj7.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "En sol: Gmaj7–Am7–Bm7–Cmaj7–D7–Em7–F♯m7♭5. El ii–V–I es Am7–D7–Gmaj7.",
+    "listen": [
+      67,
+      71,
+      74,
+      66,
+      69,
+      72,
+      74,
+      66,
+      69,
+      67,
+      71,
+      74
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Qué séptima corresponde a V en una tonalidad mayor?",
+        [
+          "Mayor séptima",
+          "Dominante séptima",
+          "Menor con séptima mayor"
+        ],
+        1,
+        "V combina tríada mayor y séptima menor."
+      ],
+      [
+        "¿Qué notas guía tiene Dm7?",
+        [
+          "Fa y do",
+          "Re y la",
+          "Mi y si"
+        ],
+        0,
+        "Fa es su tercera menor y do su séptima menor."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Separar inversión y disposición de voces.",
+      "Comparar registro y continuidad."
+    ],
+    "sections": [
+      [
+        "Abierto no significa invertido",
+        "La inversión la determina el bajo. La disposición describe cómo se distribuyen las otras voces. Do–sol–mi con do grave puede ser una disposición abierta de C en estado fundamental. Mi–sol–do tiene mi en el bajo y es primera inversión, aunque las voces estén relativamente juntas.",
+        "Una línea de bajo convincente y unas voces superiores suaves son objetivos que conviene estudiar por separado. Reunirlos después produce una textura más controlada que mover bloques idénticos sin escuchar sus líneas."
+      ],
+      [
+        "Un criterio para enlazar",
+        "Mantén notas comunes cuando favorezcan la frase y busca movimientos pequeños en las voces restantes. Evita cambios de registro involuntarios que parezcan un salto melódico destacado. La herramienta de enlaces cercanos compara disposiciones para reducir movimientos; no sustituye las reglas de escritura de un estilo concreto.",
+        "Un cambio de cantidad de voces requiere criterio: una tríada y una novena no tienen el mismo número de sonidos. Decide qué notas son esenciales, qué puede duplicarse y qué puede omitirse sin perder la función."
+      ],
+      [
+        "Escuchar el registro",
+        "En graves, intervalos cerrados pueden perder claridad. Un bajo separado y terceras o séptimas más arriba suelen facilitar la percepción. En agudos puedes usar más cercanía sin el mismo efecto de densidad. Compara la misma armonía en dos registros antes de elegir."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Dm7–G7–Cmaj7 puede reducirse en voces superiores a fa–do → fa–si → mi–si, mientras el bajo toca re–sol–do.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Una disposición como do3–sol3–mi4 sigue teniendo do en el bajo. Cambiarlo por mi3 produce primera inversión."
+    ],
+    "pitfall": "Abierto y cerrado describen disposición; fundamental e inversiones describen el bajo.",
+    "steps": [
+      "Compara una disposición cerrada y una abierta del mismo acorde, manteniendo el bajo.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Una disposición como do3–sol3–mi4 sigue teniendo do en el bajo. Cambiarlo por mi3 produce primera inversión.",
+    "listen": [
+      60,
+      64,
+      67,
+      60,
+      67,
+      76
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Puede un acorde abierto estar en estado fundamental?",
+        [
+          "Sí, si la fundamental está en el bajo",
+          "No, abierto significa primera inversión",
+          "Solo si no tiene tercera"
+        ],
+        0,
+        "La apertura de voces no determina la inversión."
+      ],
+      [
+        "¿Qué suele ayudar a evitar densidad excesiva en graves?",
+        [
+          "Separar el bajo y situar voces más arriba",
+          "Cerrar todas las tensiones en la octava grave",
+          "Duplicar todos los sonidos"
+        ],
+        0,
+        "La separación de registros puede mejorar la claridad de la textura."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Construir pentatónicas mayores y menores.",
+      "Usar la nota blues con intención de fraseo."
+    ],
+    "sections": [
+      [
+        "Cinco notas no significan pocas posibilidades",
+        "La pentatónica mayor omite IV y VII de la mayor. La menor selecciona I, ♭III, IV, V y ♭VII. Do mayor pentatónica y la menor pentatónica comparten notas, pero el centro, el bajo y el fraseo cambian la función de cada una.",
+        "Limitarte a cinco notas obliga a trabajar ritmo, silencios, repetición y contorno. Crea una pregunta corta, deja un espacio y responde. Una frase con dirección comunica más que recorrer una escala rápidamente."
+      ],
+      [
+        "La nota blues en contexto",
+        "La escala blues menor añade la quinta disminuida, una altura cromática entre IV y V. Suele funcionar como color de paso o énfasis expresivo. Su efecto depende de duración, acento y acompañamiento, por lo que no debes tratarla como una nota que encaja del mismo modo en todo acorde.",
+        "En el blues pueden convivir terceras menores en la melodía y terceras mayores en el acompañamiento. Las inflexiones de afinación no quedan completamente representadas por las teclas del piano. Escucha intérpretes reales para estudiar esa relación."
+      ],
+      [
+        "Una práctica con intención",
+        "Usa la vuelta de doce compases del laboratorio y toca un motivo sobre I7. Repítelo con alguna variación cuando llegue IV7 y reserva una respuesta para V7. Primero limita la cantidad de ataques; después prueba cambiar articulación o registro, conservando la forma."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Do pentatónica menor: do–mi♭–fa–sol–si♭. Su versión blues añade sol♭ entre fa y sol.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Do blues menor añade sol♭ a do–mi♭–fa–sol–si♭. Usa esa nota de forma consciente y escucha su tensión."
+    ],
+    "pitfall": "Una escala blues no sustituye el fraseo ni las inflexiones de intérpretes reales.",
+    "steps": [
+      "Crea dos frases cortas con do pentatónica menor y añade después una sola nota blues.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Do blues menor añade sol♭ a do–mi♭–fa–sol–si♭. Usa esa nota de forma consciente y escucha su tensión.",
+    "listen": [
+      60,
+      63,
+      65,
+      66,
+      67,
+      70,
+      72
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Qué grados contiene la pentatónica mayor?",
+        [
+          "1–2–3–5–6",
+          "1–2–3–4–7",
+          "1–♭3–4–♭5–♭7"
+        ],
+        0,
+        "Omite IV y VII de la escala mayor."
+      ],
+      [
+        "¿Qué elemento del blues no representa por completo un teclado temperado?",
+        [
+          "Las inflexiones de afinación",
+          "La posibilidad de tocar ritmos",
+          "Los silencios"
+        ],
+        0,
+        "Las blue notes pueden incluir alturas flexibles entre las teclas."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Reconocer simetrías de las escalas.",
+      "Relacionar tensiones con su resolución."
+    ],
+    "sections": [
+      [
+        "Colecciones que repiten intervalos",
+        "La escala de tonos enteros divide la octava en seis tonos iguales. La disminuida alterna tono y semitono, y sus dos orientaciones producen colecciones de ocho notas. Sus simetrías permiten repetir figuras a ciertas distancias, pero también debilitan referencias diatónicas habituales.",
+        "Aprende una estructura, transpón un motivo y comprueba qué notas siguen perteneciendo a la colección. El objetivo es reconocer la simetría auditiva, no usar una escala como respuesta automática sobre cualquier acorde."
+      ],
+      [
+        "Alteraciones sobre un dominante",
+        "Sobre G7, la tercera si y la séptima fa conservan su identidad dominante. Las tensiones la♭, la♯, re♭ y mi♭ pueden relacionarse con ♭9, ♯9, ♭5 y ♭13. Cada una añade una dirección posible hacia el acorde de llegada.",
+        "La escala alterada puede escribirse como séptimo modo de una menor melódica. Su notación estrictamente modal y su interpretación funcional no siempre usan los mismos nombres enarmónicos: distingue el inventario de alturas de cómo se escribe cada tensión del acorde."
+      ],
+      [
+        "La resolución da sentido",
+        "Toca G7(♭9) seguido de Cm. Escucha la♭ bajar a sol y si subir a do. Repite sobre C mayor y compara el resultado. El mismo color de dominante puede funcionar de manera distinta según la tónica y el movimiento de las voces. Usa el oído y explica las conexiones."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Sobre G7, la alterada aporta la♭, la♯, si, re♭, mi♭ y fa junto a sol, con equivalencias enarmónicas según la escritura.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "G7(♭9) contiene la♭, que puede descender a sol de do menor. Si natural puede subir a do."
+    ],
+    "pitfall": "Una escala sofisticada no convierte automáticamente una frase en coherente.",
+    "steps": [
+      "Compara G7 con G7(♭9) y resuelve en do menor; sigue la♭ hacia sol.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "G7(♭9) contiene la♭, que puede descender a sol de do menor. Si natural puede subir a do.",
+    "listen": [
+      67,
+      71,
+      74,
+      77,
+      80,
+      72,
+      75,
+      79
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "La escala disminuida octatónica tiene…",
+        [
+          "Cinco notas",
+          "Ocho notas",
+          "Doce notas"
+        ],
+        1,
+        "Alternar tono y semitono dentro de la octava genera ocho notas."
+      ],
+      [
+        "En G7(♭9), ¿qué nota es la ♭9?",
+        [
+          "La♭",
+          "La natural",
+          "Si♭"
+        ],
+        0,
+        "La novena natural es la; al rebajarla aparece la♭."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Comparar sustitución tritonal y backdoor.",
+      "Seguir un bajo cromático hacia la tónica."
+    ],
+    "sections": [
+      [
+        "El tritono compartido",
+        "G7 contiene si y fa. D♭7 contiene fa y do♭: do♭ suena como si en el temperamento igual. Las notas se intercambian en función de tercera y séptima. Esa relación permite sustituir el dominante en muchos contextos de jazz, especialmente si la conducción y la melodía son compatibles.",
+        "La sustitución no preserva todas las notas del acorde original. Revisa las extensiones y la línea melódica: una nota sostenida sobre G7 puede generar otra fricción sobre D♭7. La coincidencia de dos notas guía explica el recurso, pero no vuelve intercambiables todos sus usos."
+      ],
+      [
+        "Un bajo que baja por semitonos",
+        "En Dm7–D♭7–Cmaj7, las fundamentales forman re–re♭–do. La bajada cromática ofrece continuidad y contrasta con el salto re–sol–do del ii–V–I habitual. Escucha ambas versiones con la misma duración y registro para aislar el efecto.",
+        "Practica también transportando la progresión. En sol mayor, Am7–A♭7–Gmaj7 conserva la relación. Comprueba las terceras y séptimas antes de memorizar una posición de piano."
+      ],
+      [
+        "La otra puerta",
+        "La progresión Fm7–B♭7–Cmaj7 se conoce como cierre backdoor en un análisis jazzístico habitual. Su ♭VII7 no está a un tritono de G7: es otro recurso, relacionado con el iv menor y la conducción hacia I. Comparar dos rutas con el mismo destino ayuda a distinguir estructura y color."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "En do: Dm7–D♭7–Cmaj7 crea un bajo re–re♭–do. Fm7–B♭7–Cmaj7 ofrece un cierre backdoor diferente.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "En sol mayor: Am7–A♭7–Gmaj7 es sustitución tritonal. Cm7–F7–Gmaj7 es una ruta backdoor."
+    ],
+    "pitfall": "La sustitución tritonal y el cierre backdoor son mecanismos distintos.",
+    "steps": [
+      "Escucha ambas rutas en el laboratorio y canta sus líneas de bajo.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "En sol mayor: Am7–A♭7–Gmaj7 es sustitución tritonal. Cm7–F7–Gmaj7 es una ruta backdoor.",
+    "listen": [
+      62,
+      65,
+      69,
+      61,
+      65,
+      68,
+      60,
+      64,
+      67
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Qué bajo caracteriza Dm7–D♭7–Cmaj7?",
+        [
+          "Re–re♭–do",
+          "Re–sol–do",
+          "Fa–si♭–do"
+        ],
+        0,
+        "Las fundamentales descienden por semitonos."
+      ],
+      [
+        "¿Cuál es una progresión backdoor en do?",
+        [
+          "Fm7–B♭7–Cmaj7",
+          "Dm7–G7–Cmaj7",
+          "D7–G7–C"
+        ],
+        0,
+        "ivm7–♭VII7–Imaj7 es una ruta distinta del ii–V–I habitual."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Distinguir pedal y ostinato.",
+      "Diseñar contraste de textura sin cambiar armonía."
+    ],
+    "sections": [
+      [
+        "Una nota que organiza el espacio",
+        "Un pedal puede estar en el bajo, en una voz interna o arriba. Mantiene o reitera una altura mientras otras voces cambian, creando estabilidad o tensión. Si el acorde que pasa encima no contiene esa nota, la fricción puede ser parte deliberada de la textura.",
+        "Escucha cuánto dura el pedal y cómo se abandona. Un pedal de dominante antes de una llegada a tónica puede acumular expectativa; uno de tónica bajo una melodía modal puede afirmar el centro sin una progresión funcional completa."
+      ],
+      [
+        "Un patrón que persiste",
+        "Un ostinato repite una figura rítmica, melódica o ambas. No tiene por qué permanecer idéntico durante toda la pieza, pero su reiteración lo hace reconocible. Para que una melodía destaque encima, deja espacio en registro y ritmo.",
+        "La textura cambia cuando duplicas voces, separas registros o transformas un bloque en arpegio. Esas decisiones pueden crear contraste sin cambiar los acordes. No confundas complejidad armónica con riqueza de textura."
+      ],
+      [
+        "Contraste controlado",
+        "Crea una primera sección con acordes largos y otra con ostinato breve. Mantén la misma secuencia armónica para comparar únicamente la textura. Después modifica la armonía y evalúa si ambos cambios juntos clarifican la forma o la vuelven difícil de seguir."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Mantener do en el bajo mientras alternas Cmaj7 y D mayor puede afirmar un color lidio si la frase vuelve a do como centro.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "No hay una única respuesta. Comprueba que el patrón se reconoce, que su duración completa el compás y que la melodía sigue siendo audible."
+    ],
+    "pitfall": "La riqueza de textura no depende solo de añadir más acordes.",
+    "steps": [
+      "Diseña un ostinato de un compás y escribe encima una melodía de cuatro compases.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "No hay una única respuesta. Comprueba que el patrón se reconoce, que su duración completa el compás y que la melodía sigue siendo audible.",
+    "listen": [
+      60,
+      60,
+      64,
+      67,
+      60,
+      60,
+      66,
+      69
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "Un pedal puede ubicarse…",
+        [
+          "Solo en el bajo",
+          "En el bajo, dentro o arriba de la textura",
+          "Solo en percusión"
+        ],
+        1,
+        "El pedal se define por mantener la altura, no por una posición única."
+      ],
+      [
+        "Para comparar dos texturas con claridad conviene primero…",
+        [
+          "Mantener la armonía y cambiar el patrón",
+          "Cambiar todos los parámetros a la vez",
+          "Eliminar el pulso"
+        ],
+        0,
+        "Aislar un parámetro permite escuchar qué efecto produce."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Crear dos patrones de acompañamiento.",
+      "Equilibrar densidad, registro y melodía."
+    ],
+    "sections": [
+      [
+        "Acompañar es escuchar",
+        "Identifica dónde respira la melodía y cuáles son sus notas de apoyo. Coloca ataques para sostenerla, responder o crear impulso, sin competir constantemente con ella. Si el instrumento principal ocupa un registro medio denso, mueve el acompañamiento o reduce sus voces.",
+        "El volumen también organiza funciones. Un bajo claro no necesita dominar la mezcla y un acorde con más notas no tiene que sonar más fuerte. En el laboratorio, compara bloques y arpegios al mismo tempo antes de valorar su efecto."
+      ],
+      [
+        "Patrones y pulso",
+        "Un patrón de acompañamiento debe encajar en el compás. En 4/4 puedes alternar bajo en 1 y acorde en 2, repetir en 3 y 4 o repartir arpegios en corcheas. Cuenta primero y conserva los silencios; rellenar cada subdivisión no siempre aporta dirección.",
+        "El cambio de acorde puede anticiparse o retrasarse por motivos de fraseo. Para empezar, sitúalo en el primer pulso de cada compás. Añade desplazamientos cuando puedas mantener la referencia y explicar su intención."
+      ],
+      [
+        "Variar sin perder la forma",
+        "Presenta un patrón sencillo, introduce una variación en la segunda frase y reserva mayor densidad para un punto importante. Compara la textura al inicio y al final. La acumulación resulta más perceptible si hay espacio previo; mantener todo al máximo borra el contraste."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Sobre C–Am–Dm–G, compara acordes en bloque a uno por compás con arpegios de corcheas y un bajo separado.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Compara un bloque en cada primer pulso con un arpegio de ocho corcheas. Mantén tempo y volumen para aislar el patrón."
+    ],
+    "pitfall": "Acompañar no exige llenar todos los silencios de la melodía.",
+    "steps": [
+      "Elige una progresión y crea dos acompañamientos que contrasten en densidad y registro.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Compara un bloque en cada primer pulso con un arpegio de ocho corcheas. Mantén tempo y volumen para aislar el patrón.",
+    "listen": [
+      60,
+      64,
+      67,
+      69,
+      64,
+      60
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "En 4/4, ¿cuántas corcheas iguales completan un compás?",
+        [
+          "Cuatro",
+          "Seis",
+          "Ocho"
+        ],
+        2,
+        "Dos corcheas por negra y cuatro negras por compás: ocho corcheas."
+      ],
+      [
+        "¿Qué aporta reservar mayor densidad para un punto concreto?",
+        [
+          "Contraste perceptible",
+          "Que todos los acordes sean dominantes",
+          "Una modulación automática"
+        ],
+        0,
+        "La diferencia con lo anterior hace más perceptible la acumulación."
+      ]
+    ]
+  },
+  {
+    "goals": [
+      "Planificar una miniatura con restricciones.",
+      "Revisar por capas y justificar cambios."
+    ],
+    "sections": [
+      [
+        "Un encargo pequeño y concreto",
+        "Define una duración, una formación, un carácter y un límite técnico. Por ejemplo: dieciséis compases para piano, 4/4, tempo moderado, dos frases y un motivo de tres notas. Esas restricciones permiten evaluar si la pieza cumple una intención reconocible.",
+        "Escribe un mapa antes de completar todos los detalles: dónde aparece el motivo, qué compases abren y cuáles cierran, dónde cambia la textura. Una planificación breve puede evitar rehacer muchas notas sin dirección."
+      ],
+      [
+        "Tres escuchas de revisión",
+        "En la primera escucha sigue solo la melodía; en la segunda, el bajo; en la tercera, la forma completa. Anota problemas concretos: un salto que distrae, una resolución que no llega, una sección que pierde contraste o un acompañamiento que oculta el motivo.",
+        "Haz cambios limitados y conserva versiones. Si modificas ritmo, armonía, registro y forma simultáneamente, será difícil reconocer qué mejoró el resultado. Compara con el mismo criterio y a un volumen semejante."
+      ],
+      [
+        "Preparar una entrega musical",
+        "Revisa notación, duración de compases, cifrados, articulaciones y posibles ambigüedades. Acompaña la pieza con una breve descripción de sus decisiones, sin sustituir la escucha por justificaciones. Pide comentarios específicos y transforma esos comentarios en una siguiente revisión."
+      ]
+    ],
+    "worked": [
+      "Aplicación paso a paso",
+      [
+        "Un proyecto de 16 compases puede organizarse como A de 8 y A′ de 8, conservando el motivo y cambiando su final o acompañamiento.",
+        "Escucha el ejemplo y localiza las notas o pulsos que cambian.",
+        "Reproduce el proceso en otra tónica o en otro registro antes de aumentar la dificultad."
+      ],
+      "Una entrega puede incluir versión A, tres observaciones concretas y versión B. Comprueba si cada cambio responde a una observación."
+    ],
+    "pitfall": "Una evaluación profesional necesita criterios; no basta con contar notas o acordes.",
+    "steps": [
+      "Crea una miniatura, anota tres decisiones musicales y prepara una segunda versión con cambios justificados.",
+      "Usa el laboratorio para comparar dos versiones manteniendo el mismo tempo.",
+      "Anota qué conservaste, qué cambiaste y qué efecto escuchaste."
+    ],
+    "solution": "Una entrega puede incluir versión A, tres observaciones concretas y versión B. Comprueba si cada cambio responde a una observación.",
+    "listen": [
+      60,
+      62,
+      64,
+      67,
+      65,
+      64,
+      62,
+      60
+    ],
+    "listenLabel": "Escuchar el ejemplo de esta lección",
+    "extra": [
+      [
+        "¿Qué conviene conservar al revisar una miniatura?",
+        [
+          "Versiones anteriores y criterios de comparación",
+          "Solo la última versión sin escucharla",
+          "Todas las decisiones sin admitir cambios"
+        ],
+        0,
+        "Conservar versiones permite comprobar el efecto de las revisiones."
+      ],
+      [
+        "¿Por qué escuchar melodía y bajo por separado?",
+        [
+          "Para detectar problemas específicos en cada línea",
+          "Para evitar escuchar la obra completa",
+          "Porque la armonía no importa"
+        ],
+        0,
+        "Separar capas facilita localizar problemas antes de volver al conjunto."
       ]
     ]
   }

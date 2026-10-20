@@ -3,7 +3,7 @@ async function runRegression(files) {
   let checks=0;
   function assert(ok,message){if(!ok)throw Error(message);checks++}
   const memory=new Map();
-  const storage={getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,String(v))};
+  const storage={getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,String(v)),removeItem:k=>memory.delete(k)};
   const nodes=[],contexts=[],calls=[],events=[];
   const param=()=>({value:0,events:[],setValueAtTime(v,t){this.value=v;this.events.push(['set',v,t])},linearRampToValueAtTime(v,t){this.value=v;this.events.push(['linear',v,t])},exponentialRampToValueAtTime(v,t){this.value=v;this.events.push(['exp',v,t])},setTargetAtTime(v,t){this.value=v;this.events.push(['target',v,t])}});
   function node(type){const n={type,connections:[],gain:param(),frequency:param(),playbackRate:param(),threshold:param(),knee:param(),ratio:param(),attack:param(),release:param(),connect(x){this.connections.push(x)},disconnect(){this.disconnected=true},start(t){this.startTime=t},stop(t){this.stopTime=t;if(t===undefined&&this.onended)this.onended()}};nodes.push(n);return n}
@@ -33,8 +33,8 @@ async function runRegression(files) {
   assert(engine.status().enabled===false,'Reverb defaults off');
   await Promise.all([engine.ready(),engine.ready()]);
   assert(engine.status().state==='ready','Samples load');
-  assert(engine.status().loaded===17,'All 17 anchors loaded');
-  assert(calls.length===18,'Concurrent callers share the load and fallback runs once');
+  assert(engine.status().loaded===19,'All 19 anchors loaded');
+  assert(calls.length===20,'Concurrent callers share the load and fallback runs once');
   assert(calls.some(u=>u.includes('cdn.jsdelivr.net')&&u.endsWith('Fs2.mp3')),'CDN fallback requested');
   const count=calls.length;await engine.ready();assert(calls.length===count,'Loaded buffers are reused');
   engine.play(60,1,0,.16);engine.play(64,1,.2,.12);
@@ -62,12 +62,12 @@ async function runRegression(files) {
 
   const details=new Function(files['lesson-details.js']+'\nreturn lessonDetails;')();
   const modules=new Function(files['lessons.js']+'\nreturn modules;')();
-  assert(details.length===20&&modules.flatMap(m=>m[2]).length===20,'Every lesson has expanded content');
+  assert(details.length===30&&modules.flatMap(m=>m[2]).length===30,'Every lesson has expanded content');
   assert(details.every(d=>d.sections.length===3&&d.steps.length===3&&d.extra.length===2),'All lessons contain development, practice and extra questions');
   assert(details.every(d=>d.extra.every(q=>q[1][q[2]]&&q[3])),'Every additional question has a valid answer and explanation');
   const html=files['index.html'];
-  for(const name of ['lessons.js','lesson-details.js','audio.js','app.js']){
-    assert(html.includes('src="'+name+'?v=2" defer'),'Script referenced: '+name);
+  for(const name of ['lessons.js','lesson-details.js','audio.js','music.js','visuals.js','practice-data.js','academy.js','app.js']){
+    assert(html.includes('src="'+name+'?v=3" defer'),'Script referenced: '+name);
     new Function(files[name]);
   }
   assert(html.indexOf('audio.js')<html.indexOf('app.js'),'Audio loads before app');
@@ -79,20 +79,20 @@ async function runRegression(files) {
   function element(tag,attrs=''){
     const el={tagName:tag.toUpperCase(),dataset:{},style:{},classList:classList(),disabled:/\bdisabled\b/.test(attrs),value:'',options:[],children:[],textContent:'',setAttribute(k,v){this[k]=v},appendChild(x){this.children.push(x);dynamic.push(x)},prepend(x){this.children.unshift(x);dynamic.push(x)},showModal(){this.open=true},close(){this.open=false}};
     for(const m of attrs.matchAll(/([\w-]+)="([^"]*)"/g)){const [_,k,v]=m;if(k==='id'){el.id=v;elements.set(v,el)}else if(k.startsWith('data-'))el.dataset[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=v;else if(k==='value')el.value=v;else el[k]=v}
-    Object.defineProperty(el,'innerHTML',{get(){return this._html||''},set(s){this._html=s;if(el.id==='view'){dynamic.forEach(x=>{if(x.id)elements.delete(x.id)});dynamic=[]}parse(s)}});
+    Object.defineProperty(el,'innerHTML',{get(){return this._html||''},set(s){this._html=s;if(el.id==='view'){dynamic.forEach(x=>{if(x.id)elements.delete(x.id)});dynamic=[]}else if(el._owned){const removed=new Set(el._owned);el._owned.forEach(x=>{if(x.id&&elements.get(x.id)===x)elements.delete(x.id)});dynamic=dynamic.filter(x=>!removed.has(x))}const before=dynamic.length;parse(s);el._owned=dynamic.slice(before)}});
     return el;
   }
   function parse(s){
     for(const m of s.matchAll(/<(button|input|select|textarea|div|p|span|output|dialog)\b([^>]*)>/g)){
       const el=element(m[1],m[2]);dynamic.push(el);
-      if(m[1]==='select'){const sub=s.slice(m.index+m[0].length).split('</select>')[0];el.options=[...sub.matchAll(/<option value="([^"]*)"/g)].map(x=>({value:x[1],disabled:false}));el.value=el.options[0]?.value||''}
+      if(m[1]==='select'){const sub=s.slice(m.index+m[0].length).split('</select>')[0];el.options=[...sub.matchAll(/<option\b([^>]*)>/g)].map(x=>({value:x[1].match(/value="([^"]*)"/)[1],disabled:/\bdisabled\b/.test(x[1]),selected:/\bselected\b/.test(x[1])}));el.value=el.options.find(x=>x.selected)?.value||el.options[0]?.value||''}
     }
   }
   parse(html);dynamic=[];
-  const nav=['learn','studio','ear','progress'].map(p=>({dataset:{page:p},classList:classList()}));
+  const nav=['learn','studio','circle','practice','theory','progress'].map(p=>({dataset:{page:p},classList:classList()}));
   const doc={
     hidden:false,
-    getElementById:id=>{if(!elements.has(id))throw Error('Missing element '+id);return elements.get(id)},
+    getElementById:id=>elements.get(id)||null,
     querySelectorAll(selector){
       if(selector==='nav button')return nav;
       const match=selector.match(/^\[data-([\w-]+)(?:="([^"]*)")?\]$/);
@@ -104,10 +104,14 @@ async function runRegression(files) {
   };
   const stubAudio={...engine,stop(){},status:()=>engine.status()};
   const runner=new Function('document','window','localStorage','CadenciaAudio','setTimeout','clearTimeout','setInterval','clearInterval',
-    files['lessons.js']+'\n'+files['lesson-details.js']+'\n'+files['app.js']+
-    '\nreturn {go,openLesson,getSaved:()=>saved};');
-  const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,stubAudio,setTimeout,clearTimeout,setInterval,clearInterval);
-  assert(elements.get('view').innerHTML.includes('Tu mapa de aprendizaje'),'Initial course renders');
+    files['lessons.js']+'\n'+files['lesson-details.js']+'\n'+files['music.js']+'\n'+files['visuals.js']+'\n'+files['practice-data.js']+'\n'+files['academy.js']+'\n'+files['app.js']+
+    '\nreturn {go,openLesson,getSaved:()=>saved,academy:Academy,trainer:Trainer};');
+  let timerId=0;const scheduled=new Map();
+  const uiTimeout=(fn,ms)=>{const id=++timerId;scheduled.set(id,{fn,ms});return id};
+  const uiClearTimeout=id=>scheduled.delete(id);
+  const drain=()=>{const jobs=[...scheduled.entries()].sort((a,b)=>a[1].ms-b[1].ms);for(const [id,job] of jobs){if(scheduled.has(id)){scheduled.delete(id);job.fn()}}};
+  const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,stubAudio,uiTimeout,uiClearTimeout,setInterval,clearInterval);
+  assert(elements.get('view').innerHTML.includes('Construye una base.'),'Initial course renders');
   ui.openLesson(0);
   assert(doc.querySelectorAll('[data-question]').length===9,'Lesson renders three questions with three choices');
   assert(elements.get('next').disabled,'Next waits for full assessment');
@@ -126,11 +130,53 @@ async function runRegression(files) {
   const notes=elements.get('lessonNotes');notes.value='Mi respuesta';notes.oninput();
   ui.openLesson(0);assert(elements.get('lessonNotes').value==='Mi respuesta','Notebook survives reopening lesson');
   ui.go('studio');assert(elements.get('piano').children.length===13,'Piano renders 13 chromatic keys');
+  doc.querySelectorAll('[data-lab-tab]').find(b=>b.dataset.labTab==='chords').onclick();elements.get('chordType').value='major';elements.get('chordType').onchange({target:elements.get('chordType')});
   assert(elements.get('inversion').options[3].disabled,'Third inversion is unavailable for triads');
-  elements.get('chordType').value='dom7';elements.get('chordType').onchange();
+  elements.get('chordType').value='dom7';elements.get('chordType').onchange({target:elements.get('chordType')});
   assert(!elements.get('inversion').options[3].disabled,'Seventh chords expose third inversion');
-  ui.go('ear');assert(elements.get('view').innerHTML.includes('Escucha la distancia'),'Ear training renders');
+  ui.go('ear');assert(elements.get('view').innerHTML.includes('Primero escucha'),'Ear training renders');
+  ui.go('circle');assert(doc.querySelectorAll('[data-circle]').length===12,'Circle has twelve interactive tonalities');
+  doc.querySelectorAll('[data-circle]')[6].onclick();assert(elements.get('view').innerHTML.includes('C♯'),'F-sharp dominant is spelled C-sharp');
+  ui.go('theory');assert(elements.get('view').innerHTML.includes('Una miniatura propia'),'New theory library renders');
+  ui.go('practice');assert(doc.querySelectorAll('[data-practice-mode]').length===9,'Practice offers nine exercise families');
+
+  const modeButton=id=>doc.querySelectorAll('[data-practice-mode]').find(b=>b.dataset.practiceMode===id);
+  modeButton('reading').onclick();
+  const firstTotal=ui.academy.getStats().total;
+  doc.querySelectorAll('[data-practice-answer]')[0].onclick();
+  assert(ui.academy.getStats().total===firstTotal+1,'Practice counts the first answer');
+  doc.querySelectorAll('[data-practice-answer]')[0].onclick();
+  assert(ui.academy.getStats().total===firstTotal+1,'Practice does not count repeated clicks');
+  assert(!elements.get('nextQuestion').disabled,'Answered practice enables another exercise');
+  elements.get('nextQuestion').onclick();
+  assert(elements.get('nextQuestion').disabled,'New practice requires a fresh answer');
+  modeButton('earChord').onclick();
+  assert(doc.querySelectorAll('[data-practice-answer]').every(b=>b.disabled),'Audio practice waits for listening');
+  await elements.get('questionHear').onclick();
+  assert(doc.querySelectorAll('[data-practice-answer]').every(b=>b.disabled),'Answers stay disabled during audio');
+  drain();
+  assert(doc.querySelectorAll('[data-practice-answer]').every(b=>!b.disabled),'Answers unlock after the audio example');
+  const audioTotal=ui.academy.getStats().total;
+  doc.querySelectorAll('[data-practice-answer]')[0].onclick();
+  assert(ui.academy.getStats().total===audioTotal+1,'Audio practice records one attempt');
+  ui.go('studio');
+  doc.querySelectorAll('[data-lab-tab]').find(b=>b.dataset.labTab==='progressions').onclick();
+  doc.querySelectorAll('[data-progression]').find(b=>b.dataset.progression==='blues').onclick();
+  assert(doc.querySelectorAll('[data-step]').length===12,'Blues exposes twelve bars');
+  await elements.get('playProg').onclick();
+  assert(scheduled.size>=13,'Progression schedules its bars and end marker');
+  elements.get('stopProg').onclick();
+  assert(scheduled.size===0,'Stop cancels scheduled progression updates');
+  elements.get('labRoot').value='D♭';elements.get('labRoot').onchange({target:elements.get('labRoot')});
+  assert(elements.get('view').innerHTML.includes('Laboratorio')||elements.get('labWorkspace').innerHTML.includes('D♭7'),'Progression root can be changed');
+  doc.querySelectorAll('[data-lab-tab]').find(b=>b.dataset.labTab==='scales').onclick();
+  assert(elements.get('scaleType').options.length===24,'Scale explorer exposes 24 scales');
+  elements.get('scaleType').value='dorian';elements.get('scaleType').onchange({target:elements.get('scaleType')});
+  assert(doc.querySelectorAll('[data-harmonized]').length>=7,'Seven-note scales have diatonic triads');
+  ui.go('circle');
+  for(let index=0;index<12;index++){doc.querySelectorAll('[data-circle]')[index].onclick();assert(elements.get('view').innerHTML.includes('Relativa menor:'),'Circle detail renders at '+index)}
   ui.go('progress');assert(elements.get('view').innerHTML.includes('Recorrido completado'),'Progress renders');
+
   return {checks,scope:'JavaScript, audio graph mocks, loading/failure paths, curriculum, quiz and navigation handlers. Browser layout and audible quality not verified.'};
 }
 if(typeof module!=='undefined'&&module.exports){
@@ -138,7 +184,7 @@ if(typeof module!=='undefined'&&module.exports){
   if(require.main===module){
     const fs=require('node:fs'),path=require('node:path');
     const root=path.resolve(__dirname,'..');
-    const files=Object.fromEntries(['audio.js','app.js','lessons.js','lesson-details.js','index.html'].map(p=>[p,fs.readFileSync(path.join(root,p),'utf8')]));
+    const files=Object.fromEntries(['audio.js','app.js','lessons.js','lesson-details.js','music.js','visuals.js','practice-data.js','academy.js','index.html'].map(p=>[p,fs.readFileSync(path.join(root,p),'utf8')]));
     runRegression(files).then(r=>console.log(JSON.stringify(r,null,2))).catch(e=>{console.error(e);process.exitCode=1});
   }
 }

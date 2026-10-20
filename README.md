@@ -1,71 +1,111 @@
-# Cadencia · Teoría musical
+# Cadencia · Entiende, escucha y crea música
 
-Aplicación educativa en español para aprender fundamentos de teoría musical y explorar conceptos avanzados.
+Escuela interactiva de teoría musical en español, sin dependencias de compilación.
 
-## Incluye
+Web: https://krezj97.github.io/Teoriamusical/
 
-- 20 lecciones en 10 etapas, con 60 secciones de desarrollo, ejemplos resueltos, prácticas, cuaderno y 60 preguntas en total.
-- Piano de una octava con muestras reales Salamander Grand Piano (Yamaha C5), polifonía y atajos de teclado.
-- Reproducción de escalas, acordes, inversiones y progresiones.
-- Metrónomo de 40 a 200 BPM en 2/4, 3/4 y 4/4.
-- Entrenamiento de intervalos ascendentes.
-- Reverb estéreo opcional con cantidad ajustable, volumen y preferencias persistentes.
-- Progreso guardado en el navegador mediante localStorage.
+## Recorrido y biblioteca
 
-## Ejecutar
+- 30 lecciones en 15 etapas: fundamentos, lectura, ritmo, intervalos, tonalidad, acordes, función, modos, textura y composición.
+- 90 secciones de desarrollo y 90 preguntas de lección.
+- Ejemplos resueltos, audio, diagramas vectoriales, actividades y cuaderno local.
+- 10 guías de profundización accesibles desde la biblioteca.
+- Los IDs de las 20 lecciones anteriores se conservan para mantener el progreso.
 
-No requiere instalación, dependencias ni compilación. Descarga el repositorio y abre `index.html` en un navegador moderno.
+## Laboratorio
 
-Para trabajar desde un servidor local, si tienes Python instalado:
+- 24 escalas: diatónicas, siete modos, menores, pentatónicas, blues, simétricas y colores avanzados.
+- 25 tipos de acorde: tríadas, suspendidos, añadidos, séptimas, novenas y dominante trece.
+- 28 progresiones: cadencias, pop, jazz, menor, intercambio modal, dominantes, modos, texturas y blues de 12 compases.
+- Transporte a 12 tónicas, escritura de notas, acordes en bloque o arpegios, tempo de progresión, repetición y enlaces cercanos.
+- Armonización por tríadas de las colecciones de siete notas.
+- Piano de una octava con teclado físico A W S E D F T G Y H U J K.
+- Metrónomo independiente de 40 a 200 BPM en 2/4, 3/4 y 4/4.
+
+Los enlaces cercanos son una heurística de desplazamiento entre disposiciones; no sustituyen reglas de conducción de un estilo. Para acordes extendidos, las rotaciones se presentan como voicings. El C13 de la biblioteca omite quinta y oncena explícitamente.
+
+## Círculo de quintas
+
+Doce tonalidades seleccionables, armaduras, relativas menores, IV y V, escala y ii–V–I reproducibles. La guía de seis pasos explica quintas, armaduras, relativos, acordes, modulación y la costura enarmónica entre Fa♯/Sol♭ y Do♯/Re♭. Las notas de IV y V conservan su escritura tonal correcta aunque una posición de la rueda use su equivalente enarmónico.
+
+## Entrenamiento
+
+Nueve modalidades con preguntas generadas en dos niveles:
+
+1. Lectura en pentagrama.
+2. Intervalos por semitonos.
+3. Grados de escalas.
+4. Notas de acordes.
+5. Armaduras y relativas menores.
+6. Completar ii–V–I.
+7. Duraciones rítmicas.
+8. Intervalos auditivos (el nivel avanzado incluye descenso y simultaneidad).
+9. Cualidades de acordes por oído.
+
+Cada ejercicio cuenta un solo intento y muestra una explicación. Las respuestas auditivas esperan a que termine el ejemplo. Las estadísticas se guardan por navegador; los totales auditivos de la versión anterior se migran al área nueva.
+
+## Sonido
+
+Salamander Grand Piano, grabado de un Yamaha C5 por Alexander Holm, bajo CC BY 3.0. La app usa 19 muestras MP3, aproximadamente 1,3 MB de descarga inicial, con fuente alternativa y reintento. El audio necesita conexión para descargar las muestras. Reverb estéreo opcional, volumen y preferencias guardados localmente. El metrónomo no recibe la reverb.
+
+Créditos y tratamiento de las muestras: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Ejecutar localmente
+
+No requiere instalación ni build. Para servir todos los archivos:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Abre http://localhost:8000 y pulsa un control de reproducción para activar el sonido.
+Abre http://localhost:8000 y pulsa Cargar piano. Un servidor local evita diferencias de comportamiento del almacenamiento o peticiones desde file://.
 
 ## Estructura
 
 | Archivo | Responsabilidad |
 | --- | --- |
-| `index.html` | Estructura y navegación principal |
-| `styles.css` | Diseño adaptable a móvil y escritorio |
-| `lessons.js` | Contenido de las 20 lecciones y sus preguntas |
-| `app.js` | Navegación, evaluación, cuaderno, controles y progreso |
-| `audio.js` | Carga de muestras, reproducción polifónica y reverb |
-| `lesson-details.js` | Desarrollo ampliado, ejemplos resueltos y preguntas adicionales |
-| `THIRD_PARTY_NOTICES.md` | Fuente, licencia y atribución del piano |
+| index.html | Estructura, navegación y controles de sonido |
+| styles.css | Diseño adaptable a móvil y escritorio |
+| app.js | Recorrido, lector de lecciones, progreso y navegación |
+| music.js | Catálogo, escritura, transporte, armonización y voicings |
+| visuals.js | Diagramas SVG musicales |
+| academy.js | Laboratorio, círculo, práctica y biblioteca |
+| practice-data.js | Generador de ejercicios con soluciones y explicaciones |
+| lessons.js | Contenido base de las 30 lecciones |
+| lesson-details.js | Desarrollo, ejemplos, prácticas y evaluación ampliada |
+| audio.js | Muestras, reproducción polifónica, volumen y reverb |
+| assets/ | Nueve imágenes SVG originales de apoyo musical |
+| tests/ | Regresiones de lógica, datos, audio y manejadores de interfaz |
 
-Los scripts se cargan con `defer`: contenido base, desarrollo ampliado, motor de sonido y aplicación.
+Los scripts usan defer en orden de dependencias. Los diagramas son vectoriales y locales; no necesitan un proveedor externo de imágenes.
 
-## Alcance actual
+## Verificar
 
-Esta es la versión inicial trasladada desde el prototipo de la conversación, con el código separado para facilitar cambios. El recorrido introduce conceptos de fundamentos a armonía avanzada; no equivale a una formación profesional completa.
-
-El progreso se guarda por navegador y origen; no se sincroniza entre dispositivos ni se transfiere automáticamente desde la vista previa de ChatGPT. La app no usa cuentas ni servidor. El piano usa 17 muestras MP3 (unos 1,1 MB de descarga comprimida), cargadas al activar el sonido. Requiere conexión para la carga inicial; tiene origen alternativo y reintento ante errores. No sustituye silenciosamente un fallo por un sintetizador. El metrónomo funciona sin descargar las muestras y queda fuera de la reverb. La reverb está apagada por defecto. Las grabaciones son de Alexander Holm, CC BY 3.0; consulta THIRD_PARTY_NOTICES.md.
-
-## Comprobación manual
-
-1. Abre el recorrido y una lección; una respuesta incorrecta no debe aprobarla y cada respuesta correcta debe dar una explicación. Las tres preguntas deben resolverse para aprobar; el progreso se suma una sola vez.
-2. Recarga y comprueba que el progreso permanece si el navegador permite almacenamiento local.
-3. En el laboratorio, carga el piano, prueba notas simultáneas y compara reverb apagada/encendida, 0%/60% y volumen. Prueba escalas, acordes (incluida tercera inversión en séptimas) y progresiones.
-4. Inicia el metrónomo, cambia tempo y compás y verifica que se detiene al navegar o al ocultar la pestaña.
-5. En oído, escucha y responde: cada pregunta debe contabilizarse una sola vez.
-6. Abre una lección, escucha su ejemplo, escribe en el cuaderno, entra al laboratorio y vuelve a la lección. Comprueba notas guardadas tras recargar.
-7. Revisa la navegación en móvil y el diálogo de reinicio: cancelar conserva el progreso y confirmar lo borra.
-
-## Publicación
-
-Los archivos son estáticos y pueden alojarse en un servidor web o GitHub Pages. La carga al repositorio no activa automáticamente una web pública.
-
-## Pruebas de regresión
-
-Con Node.js instalado, ejecuta:
+Con Node.js:
 
 ```sh
 node tests/regression.cjs
+node tests/music.cjs
 ```
 
-La suite comprueba carga compartida de las 17 muestras, reutilización de buffers, origen alternativo, errores de descarga, cancelación al navegar, controles del grafo de audio, contenido y preguntas, aprobación completa sin duplicados, cuaderno, navegación y tercera inversión.
+Las pruebas cubren el modelo musical en las 12 tónicas, ortografía, rotaciones, progresiones, 720 variantes de ejercicios, carga/fallo de muestras, reverb, evaluación, cuaderno, controles de reproducción y navegación. Las pruebas de interfaz usan un DOM mínimo y las de audio, dobles de Web Audio. No comprueban diseño renderizado, compatibilidad real, latencia ni calidad audible.
 
-Estas comprobaciones usan dobles de Web Audio y un DOM mínimo. No sustituyen una prueba de calidad audible, latencia, diseño o compatibilidad en un navegador real.
+Comprobación manual sugerida:
+
+- En móvil y escritorio, abrir navegación, una lección nueva y sus diagramas; completar tres preguntas y guardar notas.
+- Escuchar piano y reverb; cambiar entre las cuatro herramientas del laboratorio.
+- Reproducir un blues, cambiar tempo y tónica, probar repetición y detener; navegar durante una reproducción.
+- Comparar modos desde una misma tónica y escuchar sus tríadas.
+- Cambiar las doce posiciones del círculo, especialmente Fa♯ y Re♭, y escuchar ii–V–I.
+- Probar cada modalidad de ejercicio en ambos niveles; verificar bloqueos durante audio y conteo único.
+- Recargar para comprobar progreso y estadísticas. Cancelar y confirmar el reinicio de progreso.
+
+## Alcance y persistencia
+
+El recorrido introduce herramientas desde fundamentos hasta temas avanzados. Una formación profesional requiere además repertorio, práctica instrumental, análisis y orientación docente. El porcentaje de la app mide lecciones aprobadas.
+
+Progreso, cuaderno, estadísticas y preferencias se guardan por navegador y origen. No hay cuentas ni sincronización entre dispositivos. Al ampliar el curso se conserva cada aprobación anterior, aunque el porcentaje se calcule ahora sobre 30 lecciones.
+
+## Publicación
+
+GitHub Pages publica la rama main desde la raíz. Cada actualización conserva la identidad del repositorio y cambia conjuntamente los archivos necesarios.

@@ -3,12 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cadencia · Aprende a entender la música</title>
-<link rel="stylesheet" href="styles.css?v=2">
-<script src="lessons.js?v=2" defer></script>
-<script src="lesson-details.js?v=2" defer></script>
-<script src="audio.js?v=2" defer></script>
-<script src="app.js?v=2" defer></script>
+<title>Cadencia · Entiende, escucha y crea música</title>
+<meta name="description" content="Aprende teoría musical en español con 30 lecciones, piano de cola, círculo de quintas interactivo, 24 escalas y ejercicios de lectura, ritmo, oído y armonía.">
+<meta name="theme-color" content="#241b35">
+<link rel="stylesheet" href="styles.css?v=3">
+<script src="lessons.js?v=3" defer></script>
+<script src="lesson-details.js?v=3" defer></script>
+<script src="audio.js?v=3" defer></script>
+<script src="music.js?v=3" defer></script>
+<script src="visuals.js?v=3" defer></script>
+<script src="practice-data.js?v=3" defer></script>
+<script src="academy.js?v=3" defer></script>
+<script src="app.js?v=3" defer></script>
 </head>
 <body>
 <div class="shell">
@@ -16,15 +22,17 @@
 <div class="logo"><span>◒</span> cadencia</div>
 <div class="tiny">Tu escuela de música</div>
 <nav aria-label="Navegación principal">
-<button data-page="learn" class="active">▦ &nbsp; Mi recorrido</button>
-<button data-page="studio">♫ &nbsp; Laboratorio</button>
-<button data-page="ear">◉ &nbsp; Entrenar el oído</button>
-<button data-page="progress">↗ &nbsp; Mi progreso</button>
+<button data-page="learn" class="active"><span>▦</span> Mi recorrido</button>
+<button data-page="studio"><span>♫</span> Laboratorio</button>
+<button data-page="circle"><span>◎</span> Círculo de quintas</button>
+<button data-page="practice"><span>◇</span> Practicar</button>
+<button data-page="theory"><span>♮</span> Biblioteca</button>
+<button data-page="progress"><span>↗</span> Mi progreso</button>
 </nav>
 <div class="sidefoot"><strong>Un poco, cada día.</strong>Entiende. Escucha. Practica.<div class="bar"><div id="sidebarProgress"></div></div><span id="sidebarLabel"></span></div>
 </aside>
 <main>
-<header><span class="tiny">Menos memorizar. Más entender.</span><span class="tag">De la primera nota a tu primera obra</span></header>
+<header><span class="tiny">Entiende · Escucha · Crea</span><span class="tag">Tu espacio para hacer música</span></header>
 <section class="soundbar" aria-label="Sonido del piano">
   <div class="soundbar-title"><strong>♫ Grand piano</strong><span id="pianoStatus" role="status">Activa el piano para escuchar los ejemplos.</span></div>
   <button id="loadPiano">Cargar piano</button>
@@ -38,6 +46,6 @@
 <div class="footer">Cadencia · Recorrido introductorio de fundamentos a conceptos avanzados. La formación profesional requiere también repertorio, análisis, práctica instrumental y orientación docente.</div>
 </main>
 </div>
-<dialog id="resetDialog"><h2>¿Borrar tu progreso?</h2><p>Se eliminarán las lecciones aprobadas y los resultados auditivos guardados en este navegador.</p><div class="control"><button id="cancelReset">Cancelar</button><button id="confirmReset" class="primary">Borrar progreso</button></div></dialog>
+<dialog id="resetDialog"><h2>¿Borrar tu progreso?</h2><p>Se eliminarán las lecciones aprobadas y las estadísticas de ejercicios de este navegador. Las notas del cuaderno se conservarán.</p><div class="control"><button id="cancelReset">Cancelar</button><button id="confirmReset" class="primary">Borrar progreso</button></div></dialog>
 </body>
 </html>

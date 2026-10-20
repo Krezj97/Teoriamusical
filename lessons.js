@@ -338,5 +338,175 @@ const modules = [
         "Aplicar, escuchar y revisar integra el conocimiento teórico con decisiones musicales."
       ]
     ]
+  ],
+  [
+    "Leer y transportar",
+    "Pasa de reconocer notas a pensar en relaciones.",
+    [
+      [
+        "Armaduras y transporte",
+        "Transportar mantiene las relaciones de una idea y cambia su altura de referencia. Para una transposición diatónica correcta, conserva tanto la distancia entre nombres como los semitonos. La armadura organiza las alteraciones habituales de la tonalidad, pero no describe por sí sola toda su armonía.",
+        "Do–mi–sol transportado una segunda mayor ascendente da re–fa♯–la. Se mantienen los intervalos del acorde y cambia la tónica.",
+        "Transporta un motivo de cuatro notas desde do mayor a re mayor.",
+        "¿Qué resultado mantiene do–mi–sol al subir una segunda mayor?",
+        [
+          "Re–fa–la",
+          "Re–fa♯–la",
+          "Re–sol–si"
+        ],
+        1,
+        "Cada nota sube dos semitonos: re, fa♯ y la."
+      ],
+      [
+        "Lectura rítmica y tresillos",
+        "Leer ritmo exige mantener una unidad estable mientras cambian los ataques. En división binaria, dos corcheas ocupan un pulso de negra. Un tresillo de corcheas distribuye tres ataques iguales dentro de ese mismo pulso; no añade duración al compás.",
+        "En 4/4, tres negras más un tresillo de corcheas completan cuatro pulsos. El grupo irregular reemplaza el contenido habitual de un pulso.",
+        "Marca cuatro pulsos e intercala corcheas binarias y tresillos sin cambiar el tempo.",
+        "¿Cuánto ocupa un tresillo de corcheas habitual en un compás simple?",
+        [
+          "Una negra",
+          "Una blanca",
+          "Tres negras"
+        ],
+        0,
+        "Tres corcheas de tresillo se ejecutan en el espacio normal de dos corcheas: una negra."
+      ]
+    ]
+  ],
+  [
+    "Armonía en profundidad",
+    "Escucha cada voz, no solo el bloque.",
+    [
+      [
+        "Armonía diatónica con séptimas",
+        "Al añadir una cuarta nota por terceras a cada grado mayor, el resultado no es una fila de séptimas iguales: Imaj7, ii7, iii7, IVmaj7, V7, vi7 y viiø7. Distinguir sus terceras y séptimas permite identificar el color y conducir las voces.",
+        "En do mayor, Bm7♭5 contiene si–re–fa–la: tercera menor, quinta disminuida y séptima menor.",
+        "Armoniza sol mayor con séptimas y toca un ii7–V7–Imaj7.",
+        "¿Qué tipo de acorde aparece sobre el VII de una escala mayor?",
+        [
+          "Séptima disminuida",
+          "Semidisminuido",
+          "Mayor séptima"
+        ],
+        1,
+        "El VII tiene tercera menor, quinta disminuida y séptima menor: semidisminuido."
+      ],
+      [
+        "Voicings abiertos y notas guía",
+        "Un voicing determina la distribución concreta de las notas. La inversión depende del bajo; la apertura, de la separación de las voces. Un acorde puede estar abierto y seguir en estado fundamental. Las notas guía —tercera y séptima— ayudan a conectar armonías.",
+        "Dm7–G7–Cmaj7 puede reducirse en voces superiores a fa–do → fa–si → mi–si, mientras el bajo toca re–sol–do.",
+        "Compara una disposición cerrada y una abierta del mismo acorde, manteniendo el bajo.",
+        "¿Qué determina la inversión de un acorde?",
+        [
+          "La nota más aguda",
+          "La nota del acorde que ocupa el bajo",
+          "La distancia entre las voces superiores"
+        ],
+        1,
+        "La nota en el bajo define la inversión; la apertura de las voces es otra característica."
+      ]
+    ]
+  ],
+  [
+    "Escalas con intención",
+    "Elige colores y dales una función.",
+    [
+      [
+        "Pentatónicas y lenguaje blues",
+        "Las pentatónicas seleccionan cinco notas y dejan más espacio entre algunos grados. La mayor contiene 1–2–3–5–6; la menor, 1–♭3–4–5–♭7. La escala blues menor añade ♭5, pero el lenguaje blues incluye también fraseo, ritmo e inflexiones de afinación.",
+        "Do pentatónica menor: do–mi♭–fa–sol–si♭. Su versión blues añade sol♭ entre fa y sol.",
+        "Crea dos frases cortas con do pentatónica menor y añade después una sola nota blues.",
+        "¿Qué nota añade la escala blues menor a la pentatónica menor?",
+        [
+          "La quinta disminuida",
+          "La séptima mayor",
+          "La segunda mayor"
+        ],
+        0,
+        "La fórmula habitual de blues menor es 1–♭3–4–♭5–5–♭7."
+      ],
+      [
+        "Simetría y dominantes alterados",
+        "Una escala simétrica repite un patrón de distancias: tonos enteros o alternancia tono–semitono. La escala alterada procede del séptimo modo de la menor melódica. Estos recursos no reemplazan la armonía: sus notas deben relacionarse con el acorde y con la resolución prevista.",
+        "Sobre G7, la alterada aporta la♭, la♯, si, re♭, mi♭ y fa junto a sol, con equivalencias enarmónicas según la escritura.",
+        "Compara G7 con G7(♭9) y resuelve en do menor; sigue la♭ hacia sol.",
+        "¿Qué patrón caracteriza la escala de tonos enteros?",
+        [
+          "Solo tonos entre notas sucesivas",
+          "Solo semitonos",
+          "Una tercera y una quinta alternadas"
+        ],
+        0,
+        "La colección se construye mediante seis pasos de tono dentro de la octava."
+      ]
+    ]
+  ],
+  [
+    "Rutas armónicas alternativas",
+    "Resuelve la tensión por más de un camino.",
+    [
+      [
+        "Sustitución tritonal y backdoor",
+        "Un dominante puede sustituirse por otro cuya fundamental esté a un tritono, en contextos de armonía jazzística. G7 y D♭7 comparten el tritono si–fa / do♭–fa. La progresión backdoor ivm7–♭VII7–Imaj7 utiliza otro recorrido y no debe confundirse con esa sustitución.",
+        "En do: Dm7–D♭7–Cmaj7 crea un bajo re–re♭–do. Fm7–B♭7–Cmaj7 ofrece un cierre backdoor diferente.",
+        "Escucha ambas rutas en el laboratorio y canta sus líneas de bajo.",
+        "¿Qué dominante puede sustituir a G7 por relación tritonal?",
+        [
+          "D♭7",
+          "D7",
+          "F7"
+        ],
+        0,
+        "Las fundamentales sol y re♭ están a seis semitonos y sus acordes comparten el tritono enarmónico."
+      ],
+      [
+        "Pedales, ostinatos y textura",
+        "Un pedal mantiene o repite una altura mientras cambia el material que la rodea. Un ostinato repite una figura reconocible; puede incluir varias alturas y ritmo. La textura describe cómo se combinan las voces: melodía acompañada, homofonía, contrapunto u otras organizaciones.",
+        "Mantener do en el bajo mientras alternas Cmaj7 y D mayor puede afirmar un color lidio si la frase vuelve a do como centro.",
+        "Diseña un ostinato de un compás y escribe encima una melodía de cuatro compases.",
+        "¿Qué distingue un ostinato de una única nota pedal?",
+        [
+          "El ostinato puede ser una figura rítmico-melódica repetida",
+          "Son siempre exactamente lo mismo",
+          "Un ostinato no tiene ritmo"
+        ],
+        0,
+        "Un ostinato repite un patrón; un pedal se caracteriza por mantener o reiterar una altura."
+      ]
+    ]
+  ],
+  [
+    "Del estudio a una pieza",
+    "Construye, escucha y revisa decisiones.",
+    [
+      [
+        "Acompañar con intención",
+        "Un acompañamiento organiza ritmo, registro y densidad para apoyar una idea musical. Cambiar de acorde no exige tocar todas sus notas a la vez. Bloques, arpegios, bajos alternados y notas guía pueden expresar la misma armonía con efectos diferentes.",
+        "Sobre C–Am–Dm–G, compara acordes en bloque a uno por compás con arpegios de corcheas y un bajo separado.",
+        "Elige una progresión y crea dos acompañamientos que contrasten en densidad y registro.",
+        "Si una melodía necesita espacio, ¿qué recurso puede ayudar?",
+        [
+          "Añadir todas las extensiones en el registro de la melodía",
+          "Reducir densidad y separar registros",
+          "Tocar siempre más fuerte"
+        ],
+        1,
+        "Reducir densidad y evitar competir por el registro facilita percibir la línea principal."
+      ],
+      [
+        "Analizar y producir una miniatura",
+        "Una miniatura integra forma, motivo, armonía, ritmo y textura en una duración breve. El proceso profesional combina decisiones explícitas y revisión auditiva: define una intención, produce una versión, evalúala y modifica problemas concretos. La teoría informa las decisiones, pero la escucha comprueba su efecto.",
+        "Un proyecto de 16 compases puede organizarse como A de 8 y A′ de 8, conservando el motivo y cambiando su final o acompañamiento.",
+        "Crea una miniatura, anota tres decisiones musicales y prepara una segunda versión con cambios justificados.",
+        "¿Qué revisión produce información útil?",
+        [
+          "Comparar dos versiones con criterios concretos",
+          "Cambiar todo sin escuchar",
+          "Evaluar solo el número de acordes"
+        ],
+        0,
+        "Criterios como claridad del motivo, dirección armónica y equilibrio de registros permiten valorar cambios."
+      ]
+    ]
   ]
 ];
