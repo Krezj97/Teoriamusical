@@ -71,7 +71,7 @@ async function runRegression(files) {
   assert(details.every(d=>d.extra.every(q=>q[1][q[2]]&&q[3])),'Every additional question has a valid answer and explanation');
   const html=files['index.html'];
   for(const name of ['lessons.js','lesson-details.js','audio.js','music.js','visuals.js','practice-data.js','academy.js','app.js']){
-    assert(html.includes('src="'+name+'?v=7" defer'),'Script referenced: '+name);
+    assert(html.includes('src="'+name+'?v=8" defer'),'Script referenced: '+name);
     new Function(files[name]);
   }
   assert(html.indexOf('audio.js')<html.indexOf('app.js'),'Audio loads before app');

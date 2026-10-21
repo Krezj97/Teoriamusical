@@ -1,7 +1,7 @@
 /* Local encrypted profiles. No server, remote session or cross-device sync. */
 const ProfileStore = (() => {
   const prefix='cadencia-profile-v1:',enc=new TextEncoder(),dec=new TextDecoder();
-  let username=null,key=null,salt=null,data={},guest=false,queue=Promise.resolve(),revision=0;
+  let username=null,key=null,salt=null,data={},guest=false,queue=Promise.resolve(),revision=0,saveVersion=0;
   const bytes=a=>new Uint8Array(a),b64=a=>btoa(String.fromCharCode(...bytes(a))),un64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
   const normalize=s=>String(s).normalize('NFKC').trim().toLowerCase();
   const announce=()=>window.dispatchEvent(new CustomEvent('cadencia-profile',{detail:status()}));
@@ -43,11 +43,12 @@ const ProfileStore = (() => {
   function getItem(n){return Object.prototype.hasOwnProperty.call(data,n)?data[n]:null}
   function persist(){
     if(guest||!username)return;
-    const u=username,k=key,s=salt,snapshot={...data},rev=revision;
+    const u=username,k=key,s=salt,snapshot={...data},rev=revision,version=++saveVersion;
     queue=queue.catch(()=>{}).then(async()=>{
       const sealed=await seal(k,s,u,snapshot);
       if(rev!==revision)return;
       localStorage.setItem(prefix+u,sealed);
+      if(version===saveVersion)window.dispatchEvent(new CustomEvent('cadencia-saved'));
     });
     queue.catch(()=>window.dispatchEvent(new CustomEvent('cadencia-save-error')));
   }

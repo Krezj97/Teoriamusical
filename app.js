@@ -117,7 +117,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){Academy.st
 
 function refreshAudioControls(){
   const s=CadenciaAudio.status(),label=document.getElementById('pianoStatus'),button=document.getElementById('loadPiano');
-  label.textContent=s.state==='ready'?'✓ '+s.soundName+' listo':s.state==='loading'?'Cargando piano… '+s.loaded+'/'+s.total:s.state==='error'?s.error:'Elige un sonido y pulsa Probar sonido.';
+  label.textContent=s.state==='ready'?'✓ '+s.soundName+' listo':s.state==='loading'?'Cargando piano… '+s.loaded+'/'+s.total:s.state==='error'?s.error:'Pulsa una tecla o activa el sonido para empezar.';
   button.disabled=s.state==='loading';
   button.textContent=s.state==='ready'?'▶ Probar sonido':s.state==='loading'?'Cargando…':s.state==='error'?'Reintentar carga':'Cargar piano';
   document.getElementById('reverbEnabled').checked=s.enabled;

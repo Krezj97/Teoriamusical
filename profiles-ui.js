@@ -27,6 +27,7 @@
   catch(e){$('accountDescription').textContent='No se pudo guardar. Libera espacio y vuelve a intentarlo; tu sesión sigue abierta.'}
  };
  window.addEventListener('cadencia-profile',update);
+ window.addEventListener('cadencia-saved',()=>{if(!ProfileStore.status().active||ProfileStore.status().guest)return;$('profileMessage').textContent='✓ Cambios guardados en tu perfil local.';const notes=$('notesStatus');if(notes)notes.textContent='✓ Notas guardadas en tu perfil.';const complete=$('lessonComplete');if(complete&&complete.textContent.includes('Guardando'))complete.textContent='✓ Lección aprobada. Progreso guardado en tu perfil.'});
  window.addEventListener('cadencia-save-error',()=>{$('profileMessage').textContent='No se pudo guardar el progreso. Libera espacio antes de cerrar la sesión.'});
  changeMode('login');update();
 })();
