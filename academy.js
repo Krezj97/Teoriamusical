@@ -50,7 +50,7 @@ const Academy = (() => {
     const s=labState;
     view.innerHTML=head('Tu estudio creativo','Escucha. Cambia. Descubre.','Un mismo acorde puede abrir muchas puertas. Explora sus notas, cambia la tónica y escucha qué permanece.')
       +'<div class="lab-tabs" role="group" aria-label="Herramientas">'+[['progressions','01','Progresiones'],['scales','02','Escalas'],['chords','03','Acordes'],['pulse','04','Pulso']].map(([id,num,name])=>'<button data-lab-tab="'+id+'" aria-pressed="'+(s.tab===id)+'"><span>'+num+'</span>'+name+'</button>').join('')+'</div>'
-      +'<section class="piano-deck"><div class="row"><div><div class="tiny">Salamander · Yamaha C5</div><h2>Tu piano de cola</h2></div><span id="playedNote" class="badge" aria-live="polite">C4–C5</span></div><div class="keyboard" id="piano"></div><p class="small muted">Teclado: A W S E D F T G Y H U J K · Activa la reverb desde el control de sonido superior.</p></section>'
+      +'<section class="piano-deck"><div class="row"><div><div class="tiny">Salamander · Yamaha C5</div><h2>Tu piano de cola</h2></div><span id="playedNote" class="badge" aria-live="polite">C4–C5</span></div><div class="keyboard" id="piano"></div><p class="small muted">Teclado: A W S E D F T G Y H U J K · Activa la reverb desde la consola de sonido inferior.</p></section>'
       +'<div id="labWorkspace"></div><p id="audioError" class="error" aria-live="polite"></p>';
     if(lessonReturn!==null){const b=document.createElement('button');b.className='back';b.textContent='← Volver a '+lessons[lessonReturn].title;b.onclick=()=>{const id=lessonReturn;go('learn');openLesson(id)};view.prepend(b)}
     all('[data-lab-tab]').forEach(b=>b.onclick=()=>{stop();stopMetro();s.tab=b.dataset.labTab;lab()});
@@ -221,3 +221,4 @@ const Academy = (() => {
   }
   return {lab,circle:circlePage,practice,theory,stop,lessonVisual,resetPractice,getStats:()=>stats,getLabState:()=>labState};
 })();
+

@@ -8,19 +8,24 @@ function persist(){try{localStorage.setItem('cadencia-v1',JSON.stringify(saved))
 function side(){document.getElementById('sidebarProgress').style.width=(saved.done.length/lessons.length*100)+'%';document.getElementById('sidebarLabel').textContent=saved.done.length+' de '+lessons.length+' lecciones aprobadas'}
 function tone(midi,duration=.65,delay=0,vol=.16){CadenciaAudio.play(midi,duration,delay,vol)}
 function stopMetro(){clearInterval(metTimer);metTimer=null}
-function go(p){stopMetro();Academy.stop();playTimers.forEach(clearTimeout);playTimers=[];page=p;selected=null;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===(p==='ear'?'practice':p)));render();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+function go(p){stopMetro();Academy.stop();playTimers.forEach(clearTimeout);playTimers=[];page=p;selected=null;document.querySelectorAll('[data-page]').forEach(b=>{const active=b.dataset.page===(p==='ear'?'practice':p);b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});render();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));
+document.getElementById('brandHome').onclick=()=>go('learn');
 function render(){side();if(page==='learn')renderLearn();if(page==='studio')renderStudio();if(page==='ear')renderEar();if(page==='progress')renderProgress();if(page==='circle')Academy.circle();if(page==='practice')Academy.practice();if(page==='theory')Academy.theory()}
 function renderLearn(){
-  const next=lessons.find(l=>!saved.done.includes(l.id)),pct=Math.round(saved.done.length/lessons.length*100);
-  view.innerHTML=`<section class="hero hero-v3"><div><div class="tiny">Tu próxima idea empieza por entenderla</div><h1>La teoría se aprende.<br>La música se vive.</h1><p>Del primer pulso a tus propias armonías. Escucha un piano de cola, conecta las ideas y encuentra tu forma de hacer música.</p><div class="control"><button class="primary" id="continue">${next?(saved.done.length?'Continuar mi recorrido':'Empezar mi recorrido'):'Repasar el recorrido'} →</button><button id="heroLab">Abrir el laboratorio ↗</button></div><div class="hero-proof"><span>30 lecciones</span><span>9 formas de practicar</span><span>A tu ritmo</span></div></div><div class="hero-score" aria-hidden="true"><span>Una idea. Infinitas posibilidades.</span><div class="hero-chords"><b>ii7</b><i>→</i><b>V7</b><i>→</i><b>Imaj7</b></div><div class="score-lines"><span>♫</span><span>♩</span><span>♪</span></div><small>Escucha la tensión. Encuentra el reposo.</small></div></section>
-  <div class="discovery-grid"><button id="discoverCircle"><span class="discovery-icon">◎</span><span><strong>Todo está conectado</strong><small>Explora el círculo de quintas</small></span><b>↗</b></button><button id="discoverPractice"><span class="discovery-icon">◇</span><span><strong>Hoy toca practicar</strong><small>Ejercicios nuevos en cada intento</small></span><b>↗</b></button><button id="discoverTheory"><span class="discovery-icon">♮</span><span><strong>Una capa más de profundidad</strong><small>Guías, diagramas y ejemplos</small></span><b>↗</b></button></div>
-  <div class="row sectiontop"><div><div class="tiny">Tu recorrido · 15 etapas</div><h2>Construye una base. Después, explórala.</h2></div><span class="badge">${saved.done.length}/${lessons.length} · ${pct}%</span></div>
-  <p class="muted">Cada lección conecta conceptos, ejemplos sonoros, imágenes y una práctica guiada. Sigue el orden o vuelve a la idea que necesitas hoy.</p>
-  <div class="course-grid">${modules.map((m,i)=>`<section class="card course-card"><div class="modulehead"><span class="number">${String(i+1).padStart(2,'0')}</span><span class="tiny">${i<3?'Fundamentos':i<7?'Construye tu lenguaje':i<10?'Crea con intención':'Profundización'}</span></div><h3>${m[0]}</h3><p class="muted small">${m[1]}</p>${m[2].map((l,j)=>{const id=i*2+j,done=saved.done.includes(id);return `<button class="lesson" data-lesson="${id}"><span class="${done?'done':'muted'}">${done?'✓':'○'}</span><span>${l[0]}</span><small>${done?'Aprobada':'→'}</small></button>`}).join('')}</section>`).join('')}</div>`;
-  $('continue').onclick=()=>openLesson(next?next.id:0);
-  $('heroLab').onclick=()=>go('studio');$('discoverCircle').onclick=()=>go('circle');$('discoverPractice').onclick=()=>go('practice');$('discoverTheory').onclick=()=>go('theory');
-  document.querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>openLesson(+b.dataset.lesson));
+ const next=lessons.find(l=>!saved.done.includes(l.id)),target=next||lessons[0],pct=Math.round(saved.done.length/lessons.length*100);
+ const groups=[['01','LOS CIMIENTOS','Aprende a leer y a escuchar.',0,4],['02','EL LENGUAJE','Construye armonías con intención.',4,8],['03','TU MÚSICA','Dale forma a tus propias ideas.',8,10],['04','MÁS ALLÁ','Amplía tu paleta y afina tu criterio.',10,15]];
+ view.innerHTML=`<section class="landing-hero"><div class="hero-copy"><div class="eyebrow"><span class="status-dot"></span> MENOS MEMORIZAR. MÁS HACER MÚSICA.</div><h1>ENTIÉNDELO.<br><span>HAZLO TUYO.</span></h1><p>De tu primera nota a tus propias armonías. Un espacio para entender la música, entrenar el oído y llevar cada idea al piano.</p><div class="hero-actions"><button class="primary" id="continue">${next?(saved.done.length?'Retomar mi sesión':'Empezar desde cero'):'Repasar el recorrido'} ↗</button><button class="text-button" id="heroLab">Ir al estudio →</button></div><div class="hero-facts"><span><b>30</b> LECCIONES</span><span><b>28</b> PROGRESIONES</span><span><b>09</b> ENTRENAMIENTOS</span></div></div><section class="demo-console" aria-label="Ejemplo de cadencia dos cinco uno"><div class="demo-topline"><span><i class="status-dot"></i> SESIÓN 001</span><span>DO MAYOR / 4:4</span></div><div class="demo-staff" aria-hidden="true"><span class="staff-note n1">♩</span><span class="staff-note n2">♩</span><span class="staff-note n3">♩</span><span class="staff-note n4">♩</span></div><div class="demo-chords"><div><small>ii7</small><strong>Dm7</strong></div><div><small>V7</small><strong>G7</strong></div><div><small>Imaj7</small><strong>Cmaj7</strong></div></div><div class="demo-bottom"><div><small>EL SONIDO DE UNA IDEA</small><p>Tensión → reposo.</p></div><button id="heroDemo">▶ <span>ESCUCHAR</span></button></div><p id="heroAudioError" class="error small" aria-live="polite"></p></section></section>
+ <div class="entry-lanes"><button id="discoverCircle"><span class="lane-number">01 /</span><span><strong>Conecta las tonalidades</strong><small>Círculo de quintas interactivo</small></span><b>↗</b></button><button id="discoverPractice"><span class="lane-number">02 /</span><span><strong>Pon a prueba tu oído</strong><small>Nuevos retos en cada intento</small></span><b>↗</b></button><button id="discoverTheory"><span class="lane-number">03 /</span><span><strong>Amplía tu vocabulario</strong><small>Diagramas, guías y referencias</small></span><b>↗</b></button></div>
+ <div class="learning-layout"><section class="curriculum"><div class="section-heading"><div><div class="eyebrow">EL RECORRIDO / 15 ETAPAS</div><h2>Una sesión a la vez.</h2></div><div class="disclosure-controls"><button id="expandModules">Expandir +</button><button id="collapseModules">Contraer −</button></div></div>
+ ${groups.map(g=>`<section class="course-group"><div class="group-label"><span>${g[0]} / ${g[1]}</span><small>${g[2]}</small></div>${modules.slice(g[3],g[4]).map((m,k)=>{const i=k+g[3],count=saved.done.filter(n=>Math.floor(n/2)===i).length;return `<details class="module-row" data-module="${i}" ${target.module===i?'open':''}><summary><span class="track-number">${String(i+1).padStart(2,'0')}</span><span class="module-copy"><strong>${m[0]}</strong><small>${m[1]}</small></span><span class="module-count ${count===2?'done':''}">${count===2?'✓':count+'/2'}</span><span class="module-chevron">+</span></summary><div class="module-lessons">${m[2].map((l,j)=>{const id=i*2+j,done=saved.done.includes(id);return `<button data-lesson="${id}"><span class="lesson-status ${done?'done':''}">${done?'✓':'○'}</span><span><strong>${l[0]}</strong><small>LEE / ESCUCHA / PRACTICA</small></span><span class="lesson-action">${done?'Repasar':'Abrir sesión'} ↗</span></button>`}).join('')}</div></details>`}).join('')}</section>`).join('')}</section>
+ <aside class="session-sidebar"><div class="eyebrow">TU PRÓXIMO MOVIMIENTO</div><span class="session-number">${String(target.id+1).padStart(2,'0')}<small> / 30</small></span><h3>${target.title}</h3><p>${modules[target.module][1]}</p><button id="nextSession" class="primary">${next?'Abrir sesión':'Volver al inicio'} ↗</button><div class="session-progress"><div class="row"><span>RECORRIDO</span><strong>${pct}%</strong></div><div class="bar"><div style="width:${pct}%"></div></div><small>${saved.done.length} sesiones aprobadas. Cada una cuenta.</small></div><ol class="study-method"><li><span>01</span> Entiende una idea.</li><li><span>02</span> Escucha cómo funciona.</li><li><span>03</span> Hazla sonar tú.</li></ol></aside></div>`;
+ $('continue').onclick=()=>openLesson(target.id);$('nextSession').onclick=()=>openLesson(target.id);
+ $('heroLab').onclick=()=>go('studio');$('discoverCircle').onclick=()=>go('circle');$('discoverPractice').onclick=()=>go('practice');$('discoverTheory').onclick=()=>go('theory');
+ $('heroDemo').onclick=()=>withSound(()=>{Academy.stop();[[50,53,57,60],[55,59,62,65],[48,52,55,59]].forEach((chord,i)=>chord.forEach(n=>tone(n,1.3,i*1.5,.12)))});
+ $('expandModules').onclick=()=>document.querySelectorAll('[data-module]').forEach(d=>d.open=true);
+ $('collapseModules').onclick=()=>document.querySelectorAll('[data-module]').forEach(d=>d.open=false);
+ document.querySelectorAll('[data-lesson]').forEach(b=>b.onclick=()=>openLesson(+b.dataset.lesson));
 }
 function $(id){return document.getElementById(id)}
 let lessonReturn=null;
@@ -30,16 +35,15 @@ function openLesson(id){
   const questions=[[l.question,l.options,l.answer,l.why],...d.extra];
   const passed=new Set();
   const minutes=Math.max(8,Math.ceil((l.body+' '+d.sections.flat().join(' ')).split(/\s+/).length/120)+6);
-  view.innerHTML=`<article class="article lesson-article">
-  <button class="back" id="back">← Volver al recorrido</button>
+  view.innerHTML=`<div class="reader-shell"><aside class="reader-rail"><button class="back" id="back">← Volver al recorrido</button><div class="eyebrow">EN ESTA SESIÓN</div>  <nav class="lesson-toc" aria-label="Contenido de la lección">
+  ${d.sections.map((s,i)=>`<a href="#concept-${i}"><span>${String(i+1).padStart(2,'0')}</span>${s[0]}</a>`).join('')}
+  <a href="#practice">Práctica guiada</a><a href="#assessment">Evaluación</a></nav><div class="reader-note">LEE. ESCUCHA.<br>HAZLO SONAR.</div></aside><article class="article lesson-article">
   <div class="tiny">Etapa ${l.module+1} · ${modules[l.module][0]}</div>
   <div class="row"><span class="badge">Lección ${id+1} de ${lessons.length}</span><span class="muted small">${minutes}–${minutes+7} min · Lectura + práctica</span></div>
   <h1>${l.title}</h1>
   <p class="lesson-lead">${l.body}</p>${Academy.lessonVisual(id)}
   <section class="learning-goals"><h2>Lo que vas a aprender</h2><ul>${d.goals.map(g=>`<li>${g}</li>`).join('')}</ul></section>
-  <nav class="lesson-toc" aria-label="Contenido de la lección">
-  ${d.sections.map((s,i)=>`<a href="#concept-${i}">${String(i+1).padStart(2,'0')} · ${s[0]}</a>`).join('')}
-  <a href="#practice">Práctica guiada</a><a href="#assessment">Evaluación</a></nav>
+
   ${d.sections.map((s,i)=>`<section class="lesson-section" id="concept-${i}"><div class="tiny">Concepto ${i+1}</div><h2>${s[0]}</h2>${s.slice(1).map(p=>`<p>${p}</p>`).join('')}</section>`).join('')}
   <section class="worked-example"><div class="tiny">Ejemplo resuelto</div><h2>${d.worked[0]}</h2><ol>${d.worked[1].map(p=>`<li>${p}</li>`).join('')}</ol><p class="worked-result">${d.worked[2]}</p></section>
   <section class="listening-box"><h3>Primero escucha, después explica</h3><p>${l.example}</p><button id="lessonListen" class="primary">▶ ${d.listenLabel}</button><p id="lessonAudioError" class="small error" aria-live="polite"></p></section>
@@ -51,7 +55,7 @@ function openLesson(id){
   <p class="muted">${saved.done.includes(id)?'Tu aprobación anterior se conserva. Puedes repasar con esta evaluación ampliada.':'Resuelve las tres preguntas para aprobar. Si te equivocas, revisa la explicación y vuelve a intentarlo.'}</p>
   ${questions.map((q,qi)=>`<fieldset class="quiz-question"><legend>${qi+1}. ${q[0]}</legend><div class="answers">${q[1].map((o,oi)=>`<button data-question="${qi}" data-choice="${oi}">${o}</button>`).join('')}</div><p id="quiz-feedback-${qi}" class="feedback" aria-live="polite"></p></fieldset>`).join('')}
   <p id="lessonComplete" class="feedback" aria-live="polite"></p><div class="row"><button id="previousLesson" ${id===0?'disabled':''}>← Lección anterior</button><button id="next" class="primary" disabled>${id===lessons.length-1?'Ver mi progreso':'Siguiente lección →'}</button></div>
-  </section></article>`;
+  </section></article></div>`;
   document.getElementById('back').onclick=()=>go('learn');
   document.getElementById('toLab').onclick=()=>{lessonReturn=id;go('studio')};
   document.getElementById('previousLesson').onclick=()=>openLesson(id-1);
@@ -96,7 +100,7 @@ async function withAudioClick(fn){
   const originalPage=page;try{await CadenciaAudio.unlock();if(page===originalPage)fn()}catch(e){showAudioError(e.message)}
 }
 function showAudioError(message){
-  const el=document.getElementById('lessonAudioError')||document.getElementById('audioError')||document.getElementById('earFeedback');
+  const el=document.getElementById('heroAudioError')||document.getElementById('lessonAudioError')||document.getElementById('audioError')||document.getElementById('earFeedback');
   if(el)el.textContent=message;
   const status=document.getElementById('pianoStatus');if(status)status.textContent=message;
 }
@@ -133,3 +137,4 @@ document.getElementById('pianoVolume').oninput=e=>CadenciaAudio.configure({volum
 refreshAudioControls();
 
 render();
+

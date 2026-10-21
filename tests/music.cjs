@@ -45,7 +45,7 @@ function runMusicChecks(files){
   }
   const html=files['index.html'],paths=Object.keys(files),svgPaths=paths.filter(p=>p.endsWith('.svg'));
   for(const p of svgPaths){assert(files[p].includes('<svg')&&files[p].includes('<title>')&&files[p].includes('viewBox='),'Accessible standalone SVG: '+p)}
-  const refs=[...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(m=>m[1].split('?')[0]).filter(p=>!p.startsWith('http'));
+  const refs=[...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(m=>m[1].split('?')[0]).filter(p=>!p.startsWith('http')&&!p.startsWith('#'));
   assert(refs.every(p=>paths.includes(p)),'All local HTML dependencies exist');
   return {checks,exerciseVariants:720,transpositionRoots:12,scope:'Theory data, spelling, voicings, generated questions, SVG structure and local references. No browser rendering or audible assessment.'};
 }
@@ -58,3 +58,4 @@ if(typeof module!=='undefined'&&module.exports){
     try{console.log(JSON.stringify(runMusicChecks(files),null,2))}catch(e){console.error(e);process.exitCode=1}
   }
 }
+

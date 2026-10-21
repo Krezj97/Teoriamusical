@@ -67,7 +67,7 @@ async function runRegression(files) {
   assert(details.every(d=>d.extra.every(q=>q[1][q[2]]&&q[3])),'Every additional question has a valid answer and explanation');
   const html=files['index.html'];
   for(const name of ['lessons.js','lesson-details.js','audio.js','music.js','visuals.js','practice-data.js','academy.js','app.js']){
-    assert(html.includes('src="'+name+'?v=4" defer'),'Script referenced: '+name);
+    assert(html.includes('src="'+name+'?v=5" defer'),'Script referenced: '+name);
     new Function(files[name]);
   }
   assert(html.indexOf('audio.js')<html.indexOf('app.js'),'Audio loads before app');
@@ -83,18 +83,18 @@ async function runRegression(files) {
     return el;
   }
   function parse(s){
-    for(const m of s.matchAll(/<(button|input|select|textarea|div|p|span|output|dialog)\b([^>]*)>/g)){
+    for(const m of s.matchAll(/<(button|input|select|textarea|div|p|span|output|dialog|details)\b([^>]*)>/g)){
       const el=element(m[1],m[2]);dynamic.push(el);
       if(m[1]==='select'){const sub=s.slice(m.index+m[0].length).split('</select>')[0];el.options=[...sub.matchAll(/<option\b([^>]*)>/g)].map(x=>({value:x[1].match(/value="([^"]*)"/)[1],disabled:/\bdisabled\b/.test(x[1]),selected:/\bselected\b/.test(x[1])}));el.value=el.options.find(x=>x.selected)?.value||el.options[0]?.value||''}
     }
   }
   parse(html);dynamic=[];
-  const nav=['learn','studio','circle','practice','theory','progress'].map(p=>({dataset:{page:p},classList:classList()}));
+  const nav=['learn','studio','circle','practice','theory','progress'].map(p=>({dataset:{page:p},classList:classList(),setAttribute(k,v){this[k]=v},removeAttribute(k){delete this[k]}}));
   const doc={
     hidden:false,
     getElementById:id=>elements.get(id)||null,
     querySelectorAll(selector){
-      if(selector==='nav button')return nav;
+      if(selector==='[data-page]')return nav;
       const match=selector.match(/^\[data-([\w-]+)(?:="([^"]*)")?\]$/);
       if(match){const key=match[1].replace(/-([a-z])/g,(_,c)=>c.toUpperCase());return dynamic.filter(e=>e.dataset[key]!==undefined&&(match[2]===undefined||e.dataset[key]===match[2]))}
       if(selector==='.beat')return dynamic.filter(e=>e.class==='beat');return [];
@@ -111,7 +111,7 @@ async function runRegression(files) {
   const uiClearTimeout=id=>scheduled.delete(id);
   const drain=()=>{const jobs=[...scheduled.entries()].sort((a,b)=>a[1].ms-b[1].ms);for(const [id,job] of jobs){if(scheduled.has(id)){scheduled.delete(id);job.fn()}}};
   const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,stubAudio,uiTimeout,uiClearTimeout,setInterval,clearInterval);
-  assert(elements.get('view').innerHTML.includes('Construye una base.'),'Initial course renders');
+  assert(elements.get('view').innerHTML.includes('Una sesión a la vez.'),'Initial course renders');
   ui.openLesson(0);
   assert(doc.querySelectorAll('[data-question]').length===9,'Lesson renders three questions with three choices');
   assert(elements.get('next').disabled,'Next waits for full assessment');
@@ -194,3 +194,4 @@ if(typeof module!=='undefined'&&module.exports){
     runRegression(files).then(r=>console.log(JSON.stringify(r,null,2))).catch(e=>{console.error(e);process.exitCode=1});
   }
 }
+
