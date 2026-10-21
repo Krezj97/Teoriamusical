@@ -112,6 +112,9 @@ async function runRegression(files) {
   const drain=()=>{const jobs=[...scheduled.entries()].sort((a,b)=>a[1].ms-b[1].ms);for(const [id,job] of jobs){if(scheduled.has(id)){scheduled.delete(id);job.fn()}}};
   const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,stubAudio,uiTimeout,uiClearTimeout,setInterval,clearInterval);
   assert(elements.get('view').innerHTML.includes('Una sesión a la vez.'),'Initial course renders');
+  assert(doc.querySelectorAll('[data-lesson]').length===30,'All sessions remain available');
+  elements.get('expandModules').onclick();assert(doc.querySelectorAll('[data-module]').every(d=>d.open),'Expand all stages');
+  elements.get('collapseModules').onclick();assert(doc.querySelectorAll('[data-module]').every(d=>!d.open),'Collapse all stages');
   ui.openLesson(0);
   assert(doc.querySelectorAll('[data-question]').length===9,'Lesson renders three questions with three choices');
   assert(elements.get('next').disabled,'Next waits for full assessment');

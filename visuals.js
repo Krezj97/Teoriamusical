@@ -33,7 +33,7 @@ function chord(){
 function circle(selected=0,labels=true){
   const keys=Music.circle;let b='<circle cx="240" cy="240" r="180" fill="none" stroke="#354854" stroke-width="2"/><circle cx="240" cy="240" r="119" fill="none" stroke="#354854" stroke-dasharray="4 8"/>';
   keys.forEach((k,i)=>{const a=(i*30-90)*Math.PI/180,x=240+180*Math.cos(a),y=240+180*Math.sin(a),r=i===selected?27:23;
-    b+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+(i===selected?'#ffc261':(i===((selected+1)%12)||i===((selected+11)%12))?'#244552':'#fff')+'" stroke="#354854"/>';
+    b+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+(i===selected?'#305965':(i===((selected+1)%12)||i===((selected+11)%12))?'#244552':'#203b47')+'" stroke="#354854"/>';
     if(labels)b+='<text x="'+x+'" y="'+(y+7)+'" text-anchor="middle" font-family="system-ui" font-size="21" fill="#dceaf1">'+k.root+'</text>';
   });
   if(labels)b+='<text x="240" y="224" text-anchor="middle" font-family="system-ui" font-size="20" fill="#9caeb9">Quintas ascendentes ↻</text><text x="240" y="259" text-anchor="middle" font-family="system-ui" font-size="26" fill="#dceaf1">'+keys[selected].root+' mayor</text><text x="240" y="292" text-anchor="middle" font-family="system-ui" font-size="18" fill="#9caeb9">Relativa: '+keys[selected].relative+'</text>';
@@ -48,7 +48,7 @@ function modes(){
 }
 function form(){
   let b='<text x="24" y="30" font-family="system-ui" font-size="19" fill="#dceaf1">Forma ABA · identidad, contraste, regreso</text>';
-  [['A','Presentación'],['B','Contraste'],['A','Retorno']].forEach(([letter,label],i)=>{const x=24+i*150;b+='<rect x="'+x+'" y="62" width="132" height="100" rx="12" fill="'+(i===1?'#244552':'#ffc261')+'"/><text x="'+(x+66)+'" y="112" text-anchor="middle" font-size="35" font-family="serif" fill="#dceaf1">'+letter+'</text><text x="'+(x+66)+'" y="144" text-anchor="middle" font-size="17" font-family="system-ui" fill="#dceaf1">'+label+'</text>'});return wrap(b,'Tres secciones: A presentación, B contraste, A retorno',190);
+  [['A','Presentación'],['B','Contraste'],['A','Retorno']].forEach(([letter,label],i)=>{const x=24+i*150;b+='<rect x="'+x+'" y="62" width="132" height="100" rx="12" fill="'+(i===1?'#244552':'#305965')+'"/><text x="'+(x+66)+'" y="112" text-anchor="middle" font-size="35" font-family="serif" fill="#dceaf1">'+letter+'</text><text x="'+(x+66)+'" y="144" text-anchor="middle" font-size="17" font-family="system-ui" fill="#dceaf1">'+label+'</text>'});return wrap(b,'Tres secciones: A presentación, B contraste, A retorno',190);
 }
 return {keyboard,staff,rhythm,chord,circle,modes,form};
 })();
