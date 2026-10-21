@@ -10,10 +10,12 @@ const CadenciaAudio = (() => {
   ];
   const buffers=new Map(), voices=new Set();
   let ctx,graph,loading=null,loaded=0,state='idle',error='',generation=0;
-  let settings={enabled:false,mix:25,volume:75};
+  const soundNames={grand:'Piano de cola',soft:'Piano suave',bright:'Piano brillante',electric:'Piano eléctrico',pluck:'Pluck de cuerdas'};
+  let settings={enabled:false,mix:25,volume:75,sound:'grand'};
   try {
     const s=JSON.parse(localStorage.getItem('cadencia-audio-v1'));
     if(s) settings={
+      sound:Object.hasOwn(soundNames,s.sound)?s.sound:'grand',
       enabled:s.enabled===true,
       mix:Number.isFinite(s.mix)?Math.max(0,Math.min(60,s.mix)):25,
       volume:Number.isFinite(s.volume)?Math.max(0,Math.min(100,s.volume)):75
@@ -22,7 +24,7 @@ const CadenciaAudio = (() => {
   function emit(){
     window.dispatchEvent(new CustomEvent('cadencia-audio',{detail:status()}));
   }
-  function status(){return {state,loaded,total:anchors.length,error,...settings};}
+  function status(){return {state,loaded,total:anchors.length,error,...settings,soundName:soundNames[settings.sound]};}
   function context(){
     if(!ctx){
       const A=window.AudioContext||window.webkitAudioContext;
@@ -68,6 +70,7 @@ const CadenciaAudio = (() => {
     graph.master.gain.setTargetAtTime(settings.volume/100*.85,t,.02);
   }
   function configure(patch){
+    if(Object.hasOwn(soundNames,patch.sound)&&patch.sound!==settings.sound){stop();settings.sound=patch.sound;state=patch.sound==='electric'||patch.sound==='pluck'?(ctx?'ready':'idle'):(buffers.size===anchors.length?'ready':'idle');error=''}
     if(typeof patch.enabled==='boolean')settings.enabled=patch.enabled;
     if(Number.isFinite(patch.mix))settings.mix=Math.max(0,Math.min(60,patch.mix));
     if(Number.isFinite(patch.volume))settings.volume=Math.max(0,Math.min(100,patch.volume));
@@ -95,7 +98,8 @@ const CadenciaAudio = (() => {
   }
   async function load(){
     await unlock();
-    if(state==='ready')return;
+    if(settings.sound==='electric'||settings.sound==='pluck'){state='ready';error='';emit();return}
+    if(buffers.size===anchors.length){state='ready';emit();return}
     if(loading)return loading;
     state='loading';error='';emit();
     loading=(async()=>{
@@ -115,19 +119,35 @@ const CadenciaAudio = (() => {
   async function ready(){const token=generation;await load();return token===generation;}
   function play(midi,duration=.9,delay=0,volume=.16){
     if(state!=='ready')throw Error('Carga el piano antes de tocar.');
+    if(settings.sound==='electric'||settings.sound==='pluck'){synth(midi,duration,delay,volume);return}
     const nearest=anchors.reduce((a,b)=>Math.abs(b-midi)<Math.abs(a-midi)?b:a);
-    const src=ctx.createBufferSource(),gain=ctx.createGain();
+    const src=ctx.createBufferSource(),gain=ctx.createGain();let voiceFilter;
     src.buffer=buffers.get(nearest);src.playbackRate.value=Math.pow(2,(midi-nearest)/12);
-    const t=ctx.currentTime+Math.max(0,delay),hold=Math.max(.08,duration),release=.4;
-    const level=Math.min(.8,Math.max(0,volume*2.2));
+    const t=ctx.currentTime+Math.max(0,delay),hold=Math.max(.08,duration),release=settings.sound==='bright'?.22:.4;
+    const level=Math.min(.8,Math.max(0,volume*(settings.sound==='soft'?1.65:2.2)));
     gain.gain.setValueAtTime(0,t);
     gain.gain.linearRampToValueAtTime(level,t+.008);
     gain.gain.setValueAtTime(level,t+hold);
     gain.gain.exponentialRampToValueAtTime(.0001,t+hold+release);
-    src.connect(gain);gain.connect(graph.input);
+    if(settings.sound==='soft'||settings.sound==='bright'){const filter=ctx.createBiquadFilter();voiceFilter=filter;filter.type=settings.sound==='soft'?'lowpass':'highshelf';filter.frequency.value=settings.sound==='soft'?1800:2200;filter.gain.value=settings.sound==='bright'?6:0;src.connect(filter);filter.connect(gain);/* cleaned up with the source */}else src.connect(gain);gain.connect(graph.input);
     const voice={src,gain};voices.add(voice);
-    src.onended=()=>{voices.delete(voice);src.disconnect();gain.disconnect()};
+    src.onended=()=>{voices.delete(voice);src.disconnect();gain.disconnect();if(voiceFilter)voiceFilter.disconnect()};
     src.start(t);src.stop(t+hold+release+.03);
+  }
+  function synth(midi,duration,delay,volume){
+    const frequency=440*Math.pow(2,(midi-69)/12),t=ctx.currentTime+Math.max(0,delay),hold=Math.max(.1,duration);
+    const finish=(src,gain,end)=>{const voice={src,gain};voices.add(voice);src.onended=()=>{voices.delete(voice);src.disconnect();gain.disconnect()};src.start(t);src.stop(end)};
+    if(settings.sound==='electric'){
+      [[1,1],[2,.38],[3,.1]].forEach(([ratio,level])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=frequency*ratio;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(volume*level*1.6,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+hold+.55);
+        o.connect(g);g.connect(graph.input);finish(o,g,t+hold+.6)});
+    }else{
+      const length=Math.ceil(ctx.sampleRate*(hold+.6)),buffer=ctx.createBuffer(1,length,ctx.sampleRate),out=buffer.getChannelData(0);
+      const period=Math.max(2,Math.round(ctx.sampleRate/frequency)),ring=new Float32Array(period);let seed=midi*997+17;
+      for(let i=0;i<period;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;ring[i]=seed/2147483648-1}
+      for(let i=0;i<length;i++){const k=i%period;ring[k]=.497*(ring[k]+ring[(k+1)%period]);out[i]=ring[k]*Math.min(1,i/24)*Math.min(1,(length-i)/500)}
+      const src=ctx.createBufferSource(),g=ctx.createGain();src.buffer=buffer;g.gain.setValueAtTime(volume*2.6,t);src.connect(g);g.connect(graph.input);finish(src,g,t+hold+.6);
+    }
   }
   function click(accent){
     const a=context(),o=a.createOscillator(),g=a.createGain(),t=a.currentTime;
@@ -143,3 +163,4 @@ const CadenciaAudio = (() => {
   }
   return {ready,load,unlock,play,click,stop,status,configure};
 })();
+

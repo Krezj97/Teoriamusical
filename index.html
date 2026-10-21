@@ -5,43 +5,38 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cadencia — Tu música empieza aquí</title>
 <meta name="description" content="Un estudio para aprender teoría musical: lecciones, piano de cola, armonía, círculo de quintas y entrenamiento interactivo.">
-<meta name="theme-color" content="#0c1218">
-<link rel="stylesheet" href="styles.css?v=6">
-<script src="lessons.js?v=6" defer></script>
-<script src="lesson-details.js?v=6" defer></script>
-<script src="audio.js?v=6" defer></script>
-<script src="music.js?v=6" defer></script>
-<script src="visuals.js?v=6" defer></script>
-<script src="practice-data.js?v=6" defer></script>
-<script src="academy.js?v=6" defer></script>
-<script src="app.js?v=6" defer></script>
+<meta name="theme-color" content="#f5f7fc">
+<link rel="stylesheet" href="styles.css?v=7">
+<script src="lessons.js?v=7" defer></script>
+<script src="lesson-details.js?v=7" defer></script>
+<script src="audio.js?v=7" defer></script>
+<script src="music.js?v=7" defer></script>
+<script src="visuals.js?v=7" defer></script>
+<script src="practice-data.js?v=7" defer></script>
+<script src="profiles.js?v=7" defer></script>
+<script src="academy.js?v=7" defer></script>
+<script src="app.js?v=7" defer></script>
+<script src="profiles-ui.js?v=7" defer></script>
 
 </head>
 <body>
+<section class="access-screen" id="accessScreen" aria-label="Acceso a Cadencia"><div class="access-intro"><span class="access-brand"><span class="brand-symbol">c.</span> Cadencia</span><span class="welcome-tag">Tu nueva rutina musical</span><h1>Hazle espacio<br>a la música.</h1><p>Aprende a entenderla, practica a tu ritmo y encuentra tus propias ideas.</p><div class="welcome-art" aria-hidden="true"><span>do</span><span>mi</span><span>sol</span><i>♪</i></div><div class="access-benefits"><span>30 lecciones con práctica</span><span>Tu piano con 5 sonidos</span><span>Un círculo para conectar ideas</span></div></div><div class="access-card"><div class="auth-tabs" role="group" aria-label="Tipo de acceso"><button type="button" data-auth-mode="login" aria-pressed="true">Entrar</button><button type="button" data-auth-mode="register" aria-pressed="false">Crear perfil</button></div><h2 id="authTitle">Qué bueno verte de nuevo</h2><p class="muted">Un perfil para volver a tus lecciones y a tu cuaderno.</p><form id="authForm"><label for="authUsername">Usuario</label><input id="authUsername" name="username" autocomplete="username" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_.-]{3,24}" placeholder="Tu nombre de usuario"><label for="authPassword">Contraseña</label><input id="authPassword" name="password" type="password" autocomplete="current-password" required maxlength="128"><div id="registerFields" hidden><label for="authConfirm">Repite la contraseña</label><input id="authConfirm" type="password" autocomplete="new-password" maxlength="128"><p class="small muted">Usa al menos 12 caracteres. No hay recuperación de contraseña.</p><label class="check-label"><input type="checkbox" id="importLegacy"> Importar mi progreso anterior de este navegador</label></div><p id="authError" class="error" role="alert"></p><button id="authSubmit" class="primary" type="submit">Entrar</button></form><div class="guest-divider"><span>o explora sin perfil</span></div><button id="guestEntry" type="button">Continuar como invitado →</button><p class="guest-warning">En modo invitado, el progreso se pierde al cerrar o recargar.</p><p class="local-account-note"><strong>Perfiles locales.</strong> Usuario, contraseña y progreso funcionan en este navegador. No hay cuenta en la nube ni sincronización entre dispositivos. El progreso del perfil se guarda cifrado; conserva tu contraseña.</p></div></section>
 <a class="skip-link" href="#view">Ir al contenido</a>
-<div class="shell">
+<div class="shell" id="appShell" hidden>
 <header class="masthead">
-<button class="brand" id="brandHome" aria-label="Cadencia, inicio"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>CADENCIA<small>APRENDE A HACER MÚSICA</small></span></button>
-<nav class="main-navigation" aria-label="Navegación principal">
-<button data-page="learn" class="active" aria-current="page">Aprender</button><button data-page="studio">Estudio</button><button data-page="circle">Círculo</button><button data-page="practice">Entrenar</button><button data-page="theory">Explorar</button><button data-page="progress">Progreso</button>
-</nav>
-<div class="masthead-edition"><span class="status-dot"></span> ESTUDIO ABIERTO <small>TEORÍA / PRÁCTICA / CREACIÓN</small></div>
-</header>
+<button class="brand" id="brandHome" aria-label="Cadencia, inicio"><span class="brand-symbol" aria-hidden="true">c.</span><span>Cadencia<small>Un poco de música, cada día.</small></span></button>
+<div class="header-menus"><details class="explore-menu" id="navigationMenu"><summary>Explorar Cadencia <span aria-hidden="true">⌄</span></summary><nav class="main-navigation" aria-label="Navegación principal">
+<button data-page="learn" class="active" aria-current="page"><span>01</span><div>Mi recorrido<small>Aprende paso a paso</small></div></button><button data-page="studio"><span>02</span><div>Estudio musical<small>Escalas, acordes y progresiones</small></div></button><button data-page="circle"><span>03</span><div>Círculo de quintas<small>Conecta tonalidades y armonías</small></div></button><button data-page="practice"><span>04</span><div>Practicar<small>Entrena el oído y la lectura</small></div></button><button data-page="theory"><span>05</span><div>Biblioteca<small>Guías y ejemplos visuales</small></div></button><button data-page="progress"><span>06</span><div>Mi progreso<small>Revisa tu aprendizaje</small></div></button></nav></details>
+<details class="account-menu" id="accountMenu"><summary><span class="user-avatar" aria-hidden="true">☺</span><span id="accountLabel">Mi perfil</span> ⌄</summary><div class="account-popover"><h3>Tu espacio</h3><p id="accountDescription"></p><button id="exitAccount">Cerrar sesión</button></div></details></div></header>
 <main>
 <div class="workspace-strip"><span>ESCUELA DE MÚSICA <span class="strip-divider">/</span> TU ESPACIO DE PRÁCTICA</span><div class="course-progress"><span id="sidebarLabel">0 de 30 lecciones aprobadas</span><div class="bar"><div id="sidebarProgress"></div></div></div></div>
+<p class="profile-message" id="profileMessage" role="status"></p>
+<details class="instrument-drawer" id="instrumentDrawer"><summary><span class="instrument-icon" aria-hidden="true">♬</span><span><strong>Tu piano de práctica</strong><small>Cinco sonidos para probar tus ideas</small></span><span class="drawer-action">Abrir piano <b>⌄</b></span></summary><div class="instrument-body"><div class="instrument-controls"><label for="instrumentSound">Elige un sonido<select id="instrumentSound"><option value="grand">Piano de cola</option><option value="soft">Piano suave</option><option value="bright">Piano brillante</option><option value="electric">Piano eléctrico</option><option value="pluck">Pluck de cuerdas</option></select></label><label for="pianoOctave">Registro<select id="pianoOctave"><option value="48">Grave · C3–C4</option><option value="60" selected>Central · C4–C5</option><option value="72">Agudo · C5–C6</option></select></label><button id="loadPiano" class="primary">Cargar piano</button><button id="stopInstrument">Detener sonido</button></div><p id="soundDescription" class="muted"></p><div class="keyboard" id="drawerPiano" aria-label="Piano de práctica"></div><p class="keyboard-hint">Toca las teclas o usa A W S E D F T G Y H U J K. <span id="drawerNote" aria-live="polite">Do central · C4</span></p><div class="instrument-mix"><label class="check-label"><input id="reverbEnabled" type="checkbox"> Reverb</label><label for="reverbMix">Cantidad <output id="reverbValue">25%</output><input id="reverbMix" type="range" min="0" max="60" value="25" disabled></label><label for="pianoVolume">Volumen <output id="volumeValue">75%</output><input id="pianoVolume" type="range" min="0" max="100" value="75"></label></div><p id="pianoStatus" class="small muted" role="status">Elige un sonido para empezar.</p><p class="audio-credit">Piano de cola: <a href="https://github.com/Tonejs/audio/tree/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander" target="_blank" rel="noopener">Salamander Grand Piano</a> · Alexander Holm · <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Suave y brillante: variaciones procesadas del piano de cola. Eléctrico y pluck: síntesis local.</p></div></details>
 <div id="view"></div>
 <footer class="footer"><strong>CADENCIA</strong><span>Entiende el lenguaje. Hazlo tuyo.</span><p>Un recorrido de fundamentos a conceptos avanzados. Combínalo con repertorio, práctica instrumental y orientación docente.</p></footer>
 </main>
 </div>
-<section class="soundbar" aria-label="Sonido del piano">
-<div class="soundbar-title"><span class="console-icon" aria-hidden="true">♬</span><div><strong>GRAND PIANO <span>YAMAHA C5</span></strong><span id="pianoStatus" role="status">Activa el piano para escuchar los ejemplos.</span></div></div>
-<button id="loadPiano">Cargar piano</button><div class="console-divider" aria-hidden="true"></div>
-<details class="sound-options"><summary>MEZCLA / REVERB <span aria-hidden="true">↗</span></summary><div class="sound-options-panel"><div class="console-panel-title"><span>CONFIGURACIÓN DE SONIDO</span><span class="tiny">STEREO</span></div><div class="sound-options-body">
-<label class="check-label"><input id="reverbEnabled" type="checkbox"> Activar reverb</label>
-<label for="reverbMix">Cantidad de reverb <output id="reverbValue">25%</output></label><input id="reverbMix" type="range" min="0" max="60" value="25" disabled>
-<label for="pianoVolume">Volumen <output id="volumeValue">75%</output></label><input id="pianoVolume" type="range" min="0" max="100" value="75">
-</div><p class="audio-credit"><a href="https://github.com/Tonejs/audio/tree/efd8296360f9526e379bfbe5c1698ff54d6a1d34/salamander" target="_blank" rel="noopener">Salamander Grand Piano</a> · Alexander Holm · <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Sonido adaptado con afinación, envolvente y reverb opcional.</p></div></details><span class="console-caption">ESCUCHA LO QUE APRENDES.</span>
-</section>
+
 <dialog id="resetDialog"><h2>¿Borrar tu progreso?</h2><p>Se eliminarán las lecciones aprobadas y las estadísticas de ejercicios de este navegador. Las notas del cuaderno se conservarán.</p><div class="control"><button id="cancelReset">Cancelar</button><button id="confirmReset" class="primary">Borrar progreso</button></div></dialog>
 </body>
 </html>

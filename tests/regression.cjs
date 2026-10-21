@@ -52,6 +52,10 @@ async function runRegression(files) {
   assert(impulse.getChannelData(0).slice(0,144).every(v=>v===0),'Reverb impulse has pre-delay');
   assert(impulse.getChannelData(0)[200]!==impulse.getChannelData(1)[200],'Reverb channels differ');
   engine.stop();assert(voices.every(v=>v.stopTime===undefined),'Stop cancels active sample sources');
+  engine.configure({sound:'electric'});await engine.ready();const electricCount=nodes.filter(n=>n.type==='sine').length;engine.play(60);assert(nodes.filter(n=>n.type==='sine').length===electricCount+3,'Electric piano generates three partials');
+  engine.configure({sound:'pluck'});await engine.ready();engine.play(60);assert(nodes.filter(n=>n.type==='sample').at(-1).buffer.getChannelData(0).some(v=>v!==0),'Pluck produces a synthesized string buffer');
+  for(const sound of ['soft','bright']){engine.configure({sound});await engine.ready();engine.play(60);assert(nodes.some(n=>n.type===(sound==='soft'?'lowpass':'highshelf')&&n.frequency.value===(sound==='soft'?1800:2200)),'Sample variant filter: '+sound)}
+  engine.configure({sound:'grand'});await engine.ready();
   const bad=makeAudio(async()=>({ok:false,status:404}));
   let rejected=false;try{await bad.ready()}catch(e){rejected=true}
   assert(rejected&&bad.status().state==='error','Unavailable samples report a failure');
@@ -67,7 +71,7 @@ async function runRegression(files) {
   assert(details.every(d=>d.extra.every(q=>q[1][q[2]]&&q[3])),'Every additional question has a valid answer and explanation');
   const html=files['index.html'];
   for(const name of ['lessons.js','lesson-details.js','audio.js','music.js','visuals.js','practice-data.js','academy.js','app.js']){
-    assert(html.includes('src="'+name+'?v=6" defer'),'Script referenced: '+name);
+    assert(html.includes('src="'+name+'?v=7" defer'),'Script referenced: '+name);
     new Function(files[name]);
   }
   assert(html.indexOf('audio.js')<html.indexOf('app.js'),'Audio loads before app');
@@ -77,7 +81,7 @@ async function runRegression(files) {
   const elements=new Map(),documentEvents=new Map();let dynamic=[];
   const classList=()=>{const values=new Set();return {add:v=>values.add(v),remove:v=>values.delete(v),toggle(v,on){if(on)values.add(v);else values.delete(v)},contains:v=>values.has(v)}};
   function element(tag,attrs=''){
-    const el={tagName:tag.toUpperCase(),dataset:{},style:{},classList:classList(),disabled:/\bdisabled\b/.test(attrs),value:'',options:[],children:[],textContent:'',setAttribute(k,v){this[k]=v},appendChild(x){this.children.push(x);dynamic.push(x)},prepend(x){this.children.unshift(x);dynamic.push(x)},showModal(){this.open=true},close(){this.open=false}};
+    const el={tagName:tag.toUpperCase(),dataset:{},style:{},classList:classList(),disabled:/\bdisabled\b/.test(attrs),value:'',options:[],children:[],textContent:'',addEventListener(){},setAttribute(k,v){this[k]=v},appendChild(x){this.children.push(x);dynamic.push(x)},prepend(x){this.children.unshift(x);dynamic.push(x)},showModal(){this.open=true},close(){this.open=false}};
     for(const m of attrs.matchAll(/([\w-]+)="([^"]*)"/g)){const [_,k,v]=m;if(k==='id'){el.id=v;elements.set(v,el)}else if(k.startsWith('data-'))el.dataset[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=v;else if(k==='value')el.value=v;else el[k]=v}
     Object.defineProperty(el,'innerHTML',{get(){return this._html||''},set(s){this._html=s;if(el.id==='view'){dynamic.forEach(x=>{if(x.id)elements.delete(x.id)});dynamic=[]}else if(el._owned){const removed=new Set(el._owned);el._owned.forEach(x=>{if(x.id&&elements.get(x.id)===x)elements.delete(x.id)});dynamic=dynamic.filter(x=>!removed.has(x))}const before=dynamic.length;parse(s);el._owned=dynamic.slice(before)}});
     return el;
@@ -103,14 +107,15 @@ async function runRegression(files) {
     createElement:tag=>element(tag),addEventListener(type,handler){documentEvents.set(type,handler)}
   };
   const stubAudio={...engine,stop(){},status:()=>engine.status()};
-  const runner=new Function('document','window','localStorage','CadenciaAudio','setTimeout','clearTimeout','setInterval','clearInterval',
+  const profile={...storage,status:()=>({active:true,guest:false,username:'test'})};
+  const runner=new Function('document','window','localStorage','ProfileStore','CadenciaAudio','setTimeout','clearTimeout','setInterval','clearInterval',
     files['lessons.js']+'\n'+files['lesson-details.js']+'\n'+files['music.js']+'\n'+files['visuals.js']+'\n'+files['practice-data.js']+'\n'+files['academy.js']+'\n'+files['app.js']+
     '\nreturn {go,openLesson,getSaved:()=>saved,academy:Academy,trainer:Trainer};');
   let timerId=0;const scheduled=new Map();
   const uiTimeout=(fn,ms)=>{const id=++timerId;scheduled.set(id,{fn,ms});return id};
   const uiClearTimeout=id=>scheduled.delete(id);
   const drain=()=>{const jobs=[...scheduled.entries()].sort((a,b)=>a[1].ms-b[1].ms);for(const [id,job] of jobs){if(scheduled.has(id)){scheduled.delete(id);job.fn()}}};
-  const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,stubAudio,uiTimeout,uiClearTimeout,setInterval,clearInterval);
+  const ui=runner(doc,{scrollTo(){},addEventListener(){}},storage,profile,stubAudio,uiTimeout,uiClearTimeout,setInterval,clearInterval);
   assert(elements.get('view').innerHTML.includes('Una sesión a la vez.'),'Initial course renders');
   assert(doc.querySelectorAll('[data-lesson]').length===30,'All sessions remain available');
   elements.get('expandModules').onclick();assert(doc.querySelectorAll('[data-module]').every(d=>d.open),'Expand all stages');

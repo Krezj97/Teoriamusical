@@ -109,3 +109,15 @@ Progreso, cuaderno, estadísticas y preferencias se guardan por navegador y orig
 ## Publicación
 
 GitHub Pages publica la rama main desde la raíz. Cada actualización conserva la identidad del repositorio y cambia conjuntamente los archivos necesarios.
+
+
+
+## Perfiles locales y modo invitado (v7)
+
+La aplicación sigue siendo estática y se aloja en GitHub Pages. Los perfiles son locales al navegador: no existe autenticación de servidor, recuperación de contraseña ni sincronización entre dispositivos. El formulario lo indica antes de registrarse. El usuario se normaliza; la contraseña (mínimo 12 caracteres) deriva una clave con PBKDF2-SHA-256, 600.000 iteraciones y sal aleatoria de 16 bytes. El progreso y el cuaderno se cifran con AES-GCM, un IV nuevo de 12 bytes por escritura y el nombre de usuario como dato autenticado. La contraseña y la clave no se guardan. Se requiere iniciar sesión tras recargar. Esto protege el almacenamiento en reposo; no equivale a una cuenta de servidor ni protege una sesión abierta frente a código del mismo origen.
+
+El invitado usa memoria, sin persistir avance ni notas. Al recargar o salir se pierde. Los ajustes de audio son preferencias del navegador y sí se conservan. La importación del progreso anterior es explícita y no elimina los datos de origen. Los errores de guardado dejan la sesión abierta para poder reintentar.
+
+El panel de piano se despliega dentro del contenido y ofrece piano de cola (muestras Salamander), suave y brillante (variaciones procesadas), eléctrico (síntesis aditiva) y pluck de cuerdas (síntesis de cuerda pulsada). Incluye tres registros, reverb y volumen.
+
+Validación: `node tests/regression.cjs`, `node tests/music.cjs` y `node tests/profiles.cjs`.

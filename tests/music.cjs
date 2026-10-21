@@ -53,7 +53,7 @@ if(typeof module!=='undefined'&&module.exports){
   module.exports={runMusicChecks};
   if(require.main===module){
     const fs=require('node:fs'),path=require('node:path'),root=path.resolve(__dirname,'..');
-    const paths=['music.js','practice-data.js','index.html','styles.css','lessons.js','lesson-details.js','audio.js','visuals.js','academy.js','app.js',...fs.readdirSync(path.join(root,'assets')).filter(p=>p.endsWith('.svg')).map(p=>'assets/'+p)];
+    const paths=['profiles.js','profiles-ui.js','music.js','practice-data.js','index.html','styles.css','lessons.js','lesson-details.js','audio.js','visuals.js','academy.js','app.js',...fs.readdirSync(path.join(root,'assets')).filter(p=>p.endsWith('.svg')).map(p=>'assets/'+p)];
     const files=Object.fromEntries(paths.map(p=>[p,fs.readFileSync(path.join(root,p),'utf8')]));
     try{console.log(JSON.stringify(runMusicChecks(files),null,2))}catch(e){console.error(e);process.exitCode=1}
   }
