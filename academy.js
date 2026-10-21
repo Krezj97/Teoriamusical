@@ -17,11 +17,20 @@ const Academy = (() => {
     }
   }catch(e){}
   const option=(value,label,selected)=>'<option value="'+value+'"'+(value===selected?' selected':'')+'>'+label+'</option>';
+  const scoreText=()=>stats.right+' '+(stats.right===1?'acierto':'aciertos')+' en '+stats.total+' '+(stats.total===1?'intento':'intentos');
   const roots=selected=>Music.tonicNames.map(n=>option(n,Music.name(n)+' · '+n,selected)).join('');
   const grouped=(items,selected)=>[...new Set(items.map(i=>i.group))].map(g=>'<optgroup label="'+g+'">'+items.filter(i=>i.group===g).map(i=>option(i.id,i.name,selected)).join('')+'</optgroup>').join('');
   const head=(eyebrow,title,description)=>'<div class="page-heading"><div class="tiny">'+eyebrow+'</div><h1>'+title+'</h1><p class="muted">'+description+'</p></div>';
   function stop(){
+    const interrupted=hearing;
     CadenciaAudio.stop();playTimers.forEach(clearTimeout);playTimers=[];playing=false;practiceToken++;hearing=false;
+    if(interrupted){
+      heard=false;
+      const hearButton=$('questionHear');if(hearButton)hearButton.disabled=false;
+      all('[data-practice-answer]').forEach(button=>button.disabled=true);
+      const feedback=$('practiceFeedback');
+      if(feedback&&!answered){feedback.className='feedback';feedback.textContent='Reproducción interrumpida. Pulsa Escuchar ejemplo para repetir.'}
+    }
     const b=$('playProg');if(b)b.textContent='▶ Reproducir';
     all('[data-step]').forEach(x=>{x.classList.remove('is-playing');x.removeAttribute?.('aria-current')});
   }
@@ -148,7 +157,7 @@ const Academy = (() => {
     if(!question)question=Trainer.make(practiceType,practiceLevel);
     const q=question;
     view.innerHTML=head('Práctica que te hace pensar','De entenderlo a dominarlo.','Elige una habilidad y practica con preguntas nuevas. Escucha, responde y usa la explicación para ajustar tu siguiente intento.')
-    +'<div class="practice-layout"><section class="practice-menu"><h2>Tu entrenamiento</h2><label>Dificultad<select id="practiceLevel">'+option('basic','Fundamentos',practiceLevel)+option('advanced','Más desafío',practiceLevel)+'</select></label><div class="practice-types">'+Trainer.modes.map(m=>'<button data-practice-mode="'+m.id+'" aria-pressed="'+(m.id===practiceType)+'"><span>'+(m.group==='audio'?'♫':m.group==='visual'?'◈':'◇')+'</span>'+m.name+'</button>').join('')+'</div><p class="small muted" id="practiceStats">'+stats.right+' aciertos en '+stats.total+' intentos</p></section>'
+    +'<div class="practice-layout"><section class="practice-menu"><h2>Tu entrenamiento</h2><label>Dificultad<select id="practiceLevel">'+option('basic','Fundamentos',practiceLevel)+option('advanced','Más desafío',practiceLevel)+'</select></label><div class="practice-types">'+Trainer.modes.map(m=>'<button data-practice-mode="'+m.id+'" aria-pressed="'+(m.id===practiceType)+'"><span>'+(m.group==='audio'?'♫':m.group==='visual'?'◈':'◇')+'</span>'+m.name+'</button>').join('')+'</div><p class="small muted" id="practiceStats">'+scoreText()+'</p></section>'
     +'<section class="question-stage"><div class="row"><span class="badge">'+Trainer.modes.find(m=>m.id===practiceType).name+'</span><span class="tiny">'+(practiceLevel==='basic'?'Fundamentos':'Más desafío')+'</span></div><h2>'+q.prompt+'</h2>'
     +(q.visual?.kind==='note'?'<div class="music-diagram question-visual">'+noteQuestion(q.visual)+'</div>':q.visual?.kind==='rhythm'?'<div class="rhythm-pattern">'+q.visual.pattern.map(x=>'<span>'+x+'</span>').join('<b>+</b>')+'</div>':q.visual?.kind==='circle'?'<div class="question-circle"><img src="assets/circle.svg" alt="Círculo de quintas con las tonalidades mayores"></div>':'')
     +(q.audio?'<div class="listen-prompt"><span aria-hidden="true">♪</span><div><strong>Primero escucha</strong><p class="small muted">Puedes repetir antes de responder. Las opciones se activan cuando termina el ejemplo.</p></div></div><button id="questionHear" class="primary">▶ Escuchar ejemplo</button>':'')
@@ -164,7 +173,7 @@ const Academy = (() => {
       try{localStorage.setItem('cadencia-practice-v1',JSON.stringify(stats))}catch(e){}
       all('[data-practice-answer]').forEach(x=>{x.disabled=true;x.classList.toggle('chosen',+x.dataset.practiceAnswer===q.answer)});
       const f=$('practiceFeedback');f.className='feedback '+(ok?'correct':'error');feedbackText=(ok?'✓ Correcto. ':'La respuesta es '+q.choices[q.answer]+'. ')+q.explanation;f.textContent=feedbackText;
-      $('nextQuestion').disabled=false;$('practiceStats').textContent=stats.right+' aciertos en '+stats.total+' intentos';
+      $('nextQuestion').disabled=false;$('practiceStats').textContent=scoreText();
     });
     $('nextQuestion').onclick=()=>{stop();newQuestion()};
     $('practiceLab').onclick=()=>go('studio');

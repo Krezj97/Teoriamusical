@@ -67,14 +67,14 @@ async function runRegression(files) {
   assert(details.every(d=>d.extra.every(q=>q[1][q[2]]&&q[3])),'Every additional question has a valid answer and explanation');
   const html=files['index.html'];
   for(const name of ['lessons.js','lesson-details.js','audio.js','music.js','visuals.js','practice-data.js','academy.js','app.js']){
-    assert(html.includes('src="'+name+'?v=3" defer'),'Script referenced: '+name);
+    assert(html.includes('src="'+name+'?v=4" defer'),'Script referenced: '+name);
     new Function(files[name]);
   }
   assert(html.indexOf('audio.js')<html.indexOf('app.js'),'Audio loads before app');
   assert(html.indexOf('lesson-details.js')<html.indexOf('app.js'),'Lesson details load before app');
 
   // Minimal DOM fixture: exercises app event handlers, not layout or browser audio.
-  const elements=new Map();let dynamic=[];
+  const elements=new Map(),documentEvents=new Map();let dynamic=[];
   const classList=()=>{const values=new Set();return {add:v=>values.add(v),remove:v=>values.delete(v),toggle(v,on){if(on)values.add(v);else values.delete(v)},contains:v=>values.has(v)}};
   function element(tag,attrs=''){
     const el={tagName:tag.toUpperCase(),dataset:{},style:{},classList:classList(),disabled:/\bdisabled\b/.test(attrs),value:'',options:[],children:[],textContent:'',setAttribute(k,v){this[k]=v},appendChild(x){this.children.push(x);dynamic.push(x)},prepend(x){this.children.unshift(x);dynamic.push(x)},showModal(){this.open=true},close(){this.open=false}};
@@ -100,7 +100,7 @@ async function runRegression(files) {
       if(selector==='.beat')return dynamic.filter(e=>e.class==='beat');return [];
     },
     querySelector(selector){return this.querySelectorAll(selector)[0]||null},
-    createElement:tag=>element(tag),addEventListener(){}
+    createElement:tag=>element(tag),addEventListener(type,handler){documentEvents.set(type,handler)}
   };
   const stubAudio={...engine,stop(){},status:()=>engine.status()};
   const runner=new Function('document','window','localStorage','CadenciaAudio','setTimeout','clearTimeout','setInterval','clearInterval',
@@ -154,6 +154,12 @@ async function runRegression(files) {
   assert(doc.querySelectorAll('[data-practice-answer]').every(b=>b.disabled),'Audio practice waits for listening');
   await elements.get('questionHear').onclick();
   assert(doc.querySelectorAll('[data-practice-answer]').every(b=>b.disabled),'Answers stay disabled during audio');
+  doc.hidden=true;documentEvents.get('visibilitychange')();
+  assert(!elements.get('questionHear').disabled,'Interrupted example can be replayed');
+  assert(doc.querySelectorAll('[data-practice-answer]').every(b=>b.disabled),'Interruption does not unlock answers prematurely');
+  assert(elements.get('practiceFeedback').textContent.includes('interrumpida'),'Interruption explains how to continue');
+  doc.hidden=false;documentEvents.get('visibilitychange')();
+  await elements.get('questionHear').onclick();
   drain();
   assert(doc.querySelectorAll('[data-practice-answer]').every(b=>!b.disabled),'Answers unlock after the audio example');
   const audioTotal=ui.academy.getStats().total;
